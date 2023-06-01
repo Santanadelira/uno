@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Cargo {
+  ADMIN
+  ANALISTA
+  VENDEDOR
+  EXPEDICAO
+}
+
+enum TipoDeAnalise {
+  Desenvolvimento
+  Degradacao_Forcada
+  Validacao
+  Controle
+  Solubilidade
+  Estabilidade
+  Perfil_de_Dissolucao
+  Solventes_Residuais
+  Sumario_de_Validacao
+}
+
+enum Ensaios {
+  Desintegracao
+  Dissolucao
+  pH
+  Dureza
+  Friabilidade
+  Umidade
+  Viscosidade
+  Solubilidade
+  Teor_do_Ativo
+  Teor_de_Impurezas
+  Particulas_Visiveis
+  Peso_Medio
+  Karl_Fischer
+}
+
+enum ModoDeEnvioResultado {
+  VIRTUAL
+  VALER
+  CLIENTE
+  CORREIOS
+}
+
+enum StatusEnsaio {
+  Pendente
+  EmAnalise
+  Concluida
+}
+
+model Usuario {
+  id    String @id @default(dbgenerated("(concat('US_', substring(gen_random_uuid()::text from 1 for 5)))"))
+  nome  String
+  email String @unique
+  senha String
+  cargo Cargo
+}
+
+model Solicitante {
+  cnpj                  String                 @id
+  nome                  String
+  cep                   String
+  endereco              String
+  numero                String
+  cidade                String
+  estado                String
+  responsavel           String
+  telefone              String
+  email                 String
+  solicitacoesDeAnalise SolicitacaoDeAnalise[]
+}
+
+model SolicitacaoDeAnalise {
+  id                    String               @id @default(dbgenerated("(concat('SA_', substring(gen_random_uuid()::text from 1 for 5)))"))
+  nomeProjeto           String
+  aberturaSA            DateTime             @default(now())
+  inicioDoProjeto       DateTime?
+  entradaDosMateriais   DateTime?
+  conclusaoDoProjeto    DateTime?
+  prazoAcordado         DateTime
+  tipoDeAnalise         TipoDeAnalise
+  descricaoDosServicos  String
+  ensaios               Ensaios[]
+  itensDeAnalise        ItemDeAnalise[]
+  informacoesAdicionais String?
+  modoEnvioResultado    ModoDeEnvioResultado
+  responsavelPeloEnvio  String
+  dataEnvioResultados   DateTime?
+  responsavelAbertura   String
+  Solicitante           Solicitante?         @relation(fields: [solicitanteCnpj], references: [cnpj])
+  solicitanteCnpj       String?
+}
+
+model ItemDeAnalise {
+  id                        String                @id @default(dbgenerated("(concat('AM_', substring(gen_random_uuid()::text from 1 for 7)))"))
+  quantidade                Int
+  unidade                   String
+  tipoMaterial              String
+  lote                      String?
+  notaFiscal                String?
+  condicao                  String?
+  observacao                String?
+  SolicitacaoDeAnalise      SolicitacaoDeAnalise? @relation(fields: [solicitacaoDeAnaliseNumSA], references: [id])
+  solicitacaoDeAnaliseNumSA String?
+  Ensaio                    Ensaio[]
+}
+
+model Ensaio {
+  id              String        @id @default(dbgenerated("(concat('EN_', substring(gen_random_uuid()::text from 1 for 5)))"))
+  nomeEnsaio      Ensaios
+  especificacao   String
+  dataDeAnalise   DateTime?
+  statusEnsaio    StatusEnsaio
+  resultado       String?
+  itemDeAnalise   ItemDeAnalise @relation(fields: [itemDeAnaliseId], references: [id])
+  itemDeAnaliseId String
+}

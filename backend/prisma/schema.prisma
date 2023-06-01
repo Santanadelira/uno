@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Cargo {
+enum Cargos {
   ADMIN
   ANALISTA
   VENDEDOR
@@ -63,7 +63,7 @@ model Usuario {
   nome  String
   email String @unique
   senha String
-  cargo Cargo
+  cargo Cargos
 }
 
 model Solicitante {

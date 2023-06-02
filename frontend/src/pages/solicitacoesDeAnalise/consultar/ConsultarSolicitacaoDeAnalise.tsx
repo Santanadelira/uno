@@ -1,5 +1,5 @@
 import {
-  EyeIcon,
+  BeakerIcon,
   MagnifyingGlassIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
@@ -57,7 +57,7 @@ const ConsultarSolicitacaoDeAnalise = () => {
             />
           }
           BotaoIcon={
-            <EyeIcon
+            <BeakerIcon
               className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
               aria-hidden="true"
             />

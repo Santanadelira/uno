@@ -83,7 +83,7 @@ const ConsultarSolicitacaoDeAnalise = () => {
   });
 
   useEffect(() => {
-    setSolicitacoesFiltradas(
+    setSolicitacoesFiltradas(solicitacoes &&
       solicitacoes.filter((solicitante: SolicitacoesState) =>
         solicitante.nomeProjeto
           .toLocaleLowerCase()

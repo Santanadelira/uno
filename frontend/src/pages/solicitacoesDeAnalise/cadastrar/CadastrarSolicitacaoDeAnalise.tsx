@@ -10,7 +10,7 @@ import Select from "react-tailwindcss-select";
 
 interface CadastrarSolicitacaoDeAnaliseRequest {
   nomeProjeto: string;
-  prazoAcordado: Date | null;
+  prazoAcordado: string;
   tipoDeAnalise: string;
   descricaoDosServicos: string;
   informacoesAdicionais: string;
@@ -53,13 +53,13 @@ const CadastrarSolicitacaoDeAnalise = () => {
 
   const changeModoEnvio = (value: any) => {
     console.log("value:", value);
-    setModoEnvioResultado(value.value);
+    setModoEnvioResultado(value);
     formik.setFieldValue("modoEnvioResultado", value.value);
   };
 
   const changeTipoDeAnalise = (value: any) => {
     console.log("value:", value.value);
-    setTipoDeAnaliseResultado(value.value);
+    setTipoDeAnaliseResultado(value);
     formik.setFieldValue("tipoDeAnalise", value.value);
   };
 
@@ -68,7 +68,7 @@ const CadastrarSolicitacaoDeAnalise = () => {
   const formik = useFormik({
     initialValues: {
       nomeProjeto: "",
-      prazoAcordado: new Date(),
+      prazoAcordado: "",
       tipoDeAnalise: "",
       descricaoDosServicos: "",
       informacoesAdicionais: "",
@@ -98,6 +98,8 @@ const CadastrarSolicitacaoDeAnalise = () => {
           values
         );
         setOpen(true);
+        setModoEnvioResultado(modoDeEnvioOptions[0]);
+        setTipoDeAnaliseResultado(tipoDeAnaliseOptions[0]);
         formik.resetForm();
       } catch (error: any) {
         console.log(error)

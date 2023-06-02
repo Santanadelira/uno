@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
-import { corsOptions } from "./security/cors";
 import routes from "./routes";
 
 dotenv.config();
@@ -12,7 +11,7 @@ const server = express();
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(helmet());
 server.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 

@@ -3,10 +3,14 @@ import logo from "../../assets/logo.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { LoginRequest } from "../../interfaces/index.js";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/auth/authSlice.ts";
+import { login } from "../../../features/auth/authSlice.ts";
+
+interface LoginRequest {
+  email: string;
+  senha: string;
+}
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();

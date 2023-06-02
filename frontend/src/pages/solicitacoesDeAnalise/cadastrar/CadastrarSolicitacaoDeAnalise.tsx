@@ -47,10 +47,6 @@ const CadastrarSolicitacaoDeAnalise = () => {
   const [open, setOpen] = useState(false);
   const usuario = useSelector((state: any) => state.auth.userInfo.nome);
 
-  const newDate = (prazo: string) => {
-    return new Date(prazo);
-  };
-
   const changeModoEnvio = (value: any) => {
     console.log("value:", value);
     setModoEnvioResultado(value);

@@ -1,7 +1,7 @@
 import {
   BeakerIcon,
+  EyeIcon,
   MagnifyingGlassIcon,
-  MapPinIcon,
 } from "@heroicons/react/24/outline";
 import Navbar from "../../../components/navbar/Navbar.tsx";
 import { useEffect, useState } from "react";
@@ -51,13 +51,13 @@ const ConsultarSolicitacaoDeAnalise = () => {
           descricao={`${solicitacoes.tipoDeAnalise}`}
           rota="solicitantes"
           DescricaoIcon={
-            <MapPinIcon
+            <BeakerIcon
               className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
           }
           BotaoIcon={
-            <BeakerIcon
+            <EyeIcon
               className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
               aria-hidden="true"
             />

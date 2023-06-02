@@ -1,28 +1,9 @@
-import { useFormik } from "formik";
 import React from "react";
 import logo from "../../../assets/logo.svg";
-import * as yup from "yup";
 import { RxArrowLeft } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
 const esqueceuSenha: React.FC = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-    },
-
-    validationSchema: yup.object().shape({
-      email: yup
-        .string()
-        .email("Email inválido!")
-        .required("Campo obrigatório!"),
-    }),
-
-    onSubmit: async (values) => {
-      //empty for now
-    },
-  });
-
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="w-4/5 sm:w-96">

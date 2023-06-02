@@ -330,7 +330,7 @@ const CadastrarSolicitante = () => {
                 <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
                   {formik.errors.cidade && formik.touched.cidade
                     ? formik.errors.cidade
-                    : ""}
+                    : ''}
                 </p>
               </div>
             </div>

@@ -65,29 +65,7 @@ export const listarItensDeAnalise = async (
       solicitacaoDeAnalise: true,
     },
   });
-  const itensDeAnalise: Map<string, ItemDeAnalise> = new Map();
-
-  dadosItensDeAnalise.forEach((itemDeAnalise) => {
-    itensDeAnalise.set(
-      itemDeAnalise.id,
-      new ItemDeAnalise(
-        itemDeAnalise.id,
-        itemDeAnalise.quantidadeRecebida,
-        itemDeAnalise.quantidadeDisponivel,
-        itemDeAnalise.unidade,
-        itemDeAnalise.tipoMaterial,
-        itemDeAnalise.lote,
-        itemDeAnalise.notaFiscal,
-        itemDeAnalise.condicao,
-        itemDeAnalise.observacao,
-        null,
-        null
-      )
-    );    
-  });
-
-  const json = JSON.stringify(Array.from(itensDeAnalise.entries()));
-  return res.status(200).json(json);
+  return res.status(200).json(dadosItensDeAnalise);
 };
 
 export const listarItensDeAnalisePorSolicitacao = async (

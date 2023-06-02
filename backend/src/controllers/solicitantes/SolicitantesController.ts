@@ -65,28 +65,7 @@ export const listarSolicitantes = async (
   res: express.Response
 ) => {
   const dadosSolicitantes = await prisma.solicitante.findMany({});
-
-  const solicitantes: Map<string, Solicitante> = new Map();
-
-  dadosSolicitantes.forEach((solicitante) => {
-    const mapItem = new Solicitante(
-      solicitante.cnpj,
-      solicitante.nome,
-      solicitante.cep,
-      solicitante.endereco,
-      solicitante.numero,
-      solicitante.cidade,
-      solicitante.estado,
-      solicitante.responsavel,
-      solicitante.telefone,
-      solicitante.email,
-      null
-    );
-
-    solicitantes.set(solicitante.cnpj, mapItem);
-  });
-  const json = JSON.stringify(Array.from(solicitantes.entries()));
-  return res.status(200).json(json);
+  return res.status(200).json(dadosSolicitantes);
 };
 
 export const procurarSolicitante = async (

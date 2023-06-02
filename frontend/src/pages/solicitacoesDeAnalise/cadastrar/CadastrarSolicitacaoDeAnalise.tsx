@@ -3,7 +3,7 @@ import Navbar from "../../../components/navbar/Navbar.tsx";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import Select from "react-tailwindcss-select";
@@ -17,6 +17,19 @@ interface CadastrarSolicitacaoDeAnaliseRequest {
   modoEnvioResultado: string;
   solicitante: string;
   responsavelAbertura: string;
+}
+
+interface Solicitante {
+  cnpj: string;
+  nome: string;
+  cep: string;
+  endereco: string;
+  numero: string;
+  cidade: string;
+  estado: string;
+  responsavel: string;
+  telefone: string;
+  email: string;
 }
 
 const tipoDeAnaliseOptions = [
@@ -36,6 +49,8 @@ const modoDeEnvioOptions = [
   { value: "VIRTUAL", label: "Virtual" },
   { value: "CORREIOS", label: "Correios" },
 ];
+
+const solicitantesOptions = [];
 
 const CadastrarSolicitacaoDeAnalise = () => {
   const [modoEnvioResultado, setModoEnvioResultado] = useState(
@@ -59,6 +74,21 @@ const CadastrarSolicitacaoDeAnalise = () => {
     formik.setFieldValue("tipoDeAnalise", value.value);
   };
 
+  const getSolicintantes = async () => {
+    const data = await axios.get(
+      "https://uno-production.up.railway.app/solicitantes"
+    );
+
+    const solicitantes = data.data
+
+    solicitantes.forEach((solicitante: { cnpj: any; nome: any; }) => {
+      solicitantesOptions.push({ value: solicitante.cnpj, label: solicitante.nome })
+    });
+  };
+
+  useEffect(() => {
+    getSolicintantes();
+  }, []);
   const cancelButtonRef = useRef(null);
 
   const formik = useFormik({
@@ -98,7 +128,7 @@ const CadastrarSolicitacaoDeAnalise = () => {
         setTipoDeAnaliseResultado(tipoDeAnaliseOptions[0]);
         formik.resetForm();
       } catch (error: any) {
-        console.log(error)
+        console.log(error);
       }
     },
   });
@@ -222,13 +252,13 @@ const CadastrarSolicitacaoDeAnalise = () => {
                 Tipo de análise
               </label>
               <div className="mt-2 relative">
-              <Select
+                <Select
                   options={tipoDeAnaliseOptions}
                   onChange={changeTipoDeAnalise}
                   value={tipoDeAnalise}
                   primaryColor="indigo"
                 />
-                
+
                 <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
                   {formik.errors.tipoDeAnalise && formik.touched.tipoDeAnalise
                     ? formik.errors.tipoDeAnalise

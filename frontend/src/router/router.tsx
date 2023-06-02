@@ -4,6 +4,7 @@ import Login from "../pages/auth/login/Login";
 import PrivateRoute from "../components/privateRoutes/PrivateRoute";
 import Dashboard from "../pages/dashboard/Dashboard";
 import CadastrarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/cadastrar/CadastrarSolicitacaoDeAnalise";
+import CadastrarItensDeAnalise from "../pages/itensDeAnalise/cadastrar/CadastrarItensDeAnalise";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
           {
             path: "/solicitacoes-de-analise/cadastrar",
             element: <CadastrarSolicitacaoDeAnalise />,
+          },
+          {
+            path: "/itens-de-analise/cadastrar",
+            element: <CadastrarItensDeAnalise />,
           }
         ],
       },

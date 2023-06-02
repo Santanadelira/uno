@@ -63,8 +63,30 @@ export const navitems = [
     }, 
     {
         id: 4,
-        titulo: 'Análises',
-        path: '../analises',
+        titulo: 'Itens de análise',
+        dropdown: [
+            {
+                id: 'd1',
+                titulo: "Cadastrar",
+                descricao: "Registre a chegado dos itens de análise no laboratório!",
+                path: "/itens-de-analise/cadastrar",
+                icon: PlusCircleIcon
+            },
+            {
+                id: 'd2',
+                titulo: "Consultar",
+                descricao: "Consulte as informações das solicitações de análise!",
+                path: "/solicitacoes-de-analise/consultar",
+                icon: MagnifyingGlassIcon
+            },
+            {
+                id: 'd3',
+                titulo: "Gerenciar",
+                descricao: "Gerencie as informações das solicitações de análise!",
+                path: "/solicitacoes-de-analise/gerenciar",
+                icon: PencilIcon
+            },
+        ]
     },
     {
         id: 5,

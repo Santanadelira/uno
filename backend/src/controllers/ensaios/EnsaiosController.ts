@@ -53,26 +53,7 @@ export const listarEnsaiosPorItemDeAnalise = async (
     where: { itemDeAnaliseId: params.data.id },
   });
 
-  const ensaios: Map<string, Ensaio> = new Map();
-
-  dadosEnsaios.forEach((ensaio) => {
-    ensaios.set(
-      ensaio.id,
-      new Ensaio(
-        ensaio.id,
-        ensaio.nomeEnsaio,
-        ensaio.especificacao,
-        ensaio.dataDeAnalise,
-        ensaio.statusEnsaio,
-        ensaio.resultado,
-        null
-      )
-    );
-  });
-
-  const json = JSON.stringify(Array.from(ensaios.entries()));
-
-  return res.status(200).json(json);
+  return res.status(200).json(dadosEnsaios);
 };
 
 export const resultadoEnsaio = async (

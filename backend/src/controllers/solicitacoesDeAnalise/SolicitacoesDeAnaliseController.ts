@@ -77,36 +77,7 @@ export const listarSolicitacoesDeAnalise = async (
   const solicitacoesDeAnaliseDados = await prisma.solicitacaoDeAnalise.findMany(
     {}
   );
-
-  const solicitacoesDeAnalise: Map<string, SolicitacaoDeAnalise> = new Map();
-
-  solicitacoesDeAnaliseDados.forEach((solicitacaoDeAnalise) => {
-    solicitacoesDeAnalise.set(
-      solicitacaoDeAnalise.id,
-      new SolicitacaoDeAnalise(
-        solicitacaoDeAnalise.id,
-        solicitacaoDeAnalise.nomeProjeto,
-        solicitacaoDeAnalise.aberturaSA,
-        solicitacaoDeAnalise.inicioDoProjeto,
-        solicitacaoDeAnalise.entradaDosMateriais,
-        solicitacaoDeAnalise.conclusaoDoProjeto,
-        solicitacaoDeAnalise.prazoAcordado,
-        solicitacaoDeAnalise.tipoDeAnalise,
-        solicitacaoDeAnalise.descricaoDosServicos,
-        null,
-        solicitacaoDeAnalise.informacoesAdicionais,
-        solicitacaoDeAnalise.modoEnvioResultado,
-        solicitacaoDeAnalise.responsavelPeloEnvio,
-        solicitacaoDeAnalise.dataEnvioResultados,
-        solicitacaoDeAnalise.responsavelAbertura,
-        null,
-        null
-      )
-    );
-  });
-
-  const json = JSON.stringify(Array.from(solicitacoesDeAnalise.entries()));
-  return res.status(200).json(json);
+  return res.status(200).json(solicitacoesDeAnaliseDados);
 };
 
 export const procurarSolicitacaoDeAnalise = async (

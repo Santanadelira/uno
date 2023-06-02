@@ -5,6 +5,10 @@ import PrivateRoute from "../components/privateRoutes/PrivateRoute";
 import Dashboard from "../pages/dashboard/Dashboard";
 import CadastrarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/cadastrar/CadastrarSolicitacaoDeAnalise";
 import CadastrarItensDeAnalise from "../pages/itensDeAnalise/cadastrar/CadastrarItensDeAnalise";
+import CadastrarSolicitante from "../pages/solicitantes/cadastrar/CadastrarSolicitante";
+import ConsultarSolicitantes from "../pages/solicitantes/consultar/ConsultarSolicitantes";
+import DetalhesSolicitante from "../pages/solicitantes/detalhes/DetalhesSolicitante";
+import ConsultarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/consultar/ConsultarSolicitacaoDeAnalise";
 
 export const router = createBrowserRouter([
   {
@@ -24,8 +28,24 @@ export const router = createBrowserRouter([
             element: <Dashboard />,
           },
           {
+            path: "/solicitantes/cadastrar",
+            element: <CadastrarSolicitante />
+          },
+          {
+            path: "/solicitantes/consultar",
+            element: <ConsultarSolicitantes />
+          },
+          {
+            path: "/solicitantes/:cnpj",
+            element: <DetalhesSolicitante />
+          },
+          {
             path: "/solicitacoes-de-analise/cadastrar",
             element: <CadastrarSolicitacaoDeAnalise />,
+          },
+          {
+            path: "/solicitacoes-de-analise/consultar",
+            element: <ConsultarSolicitacaoDeAnalise />
           },
           {
             path: "/itens-de-analise/cadastrar",

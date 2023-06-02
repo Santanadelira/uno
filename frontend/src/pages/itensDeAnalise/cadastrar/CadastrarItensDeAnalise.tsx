@@ -5,151 +5,104 @@ import * as yup from "yup";
 import axios from "axios";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
 import Select from "react-tailwindcss-select";
 
-interface CadastrarSolicitacaoDeAnaliseRequest {
-  nomeProjeto: string;
-  prazoAcordado: string;
-  tipoDeAnalise: string;
-  descricaoDosServicos: string;
-  informacoesAdicionais: string;
-  modoEnvioResultado: string;
-  solicitante: string;
-  responsavelAbertura: string;
+interface CadastrarItensDeAnaliseRequest {
+  quantidade: number;
+  unidade: string;
+  tipoMaterial: string;
+  lote: string;
+  notaFiscal: string;
+  condicao: string;
+  observacao: string;
+  solicitacaoDeAnaliseId: string;
 }
 
-const tipoDeAnaliseOptions = [
-  { value: "", label: "Selecione o tipo de analise" },
-  { value: "Desenvolvimento", label: "Desenvolvimento" },
-  { value: "Degradacao_Forcada", label: "Degradação Forçada" },
-  { value: "Validacao", label: "Validação" },
-  { value: "Controle", label: "Controle" },
-  { value: "Solubilidade", label: "Solubilidade" },
-  { value: "Estabilidade", label: "Estabilidade" },
-  { value: "Perfil_de_Dissolucao", label: "Perfil de Dissolução" },
-  { value: "Solventes_Residuais", label: "Solventes Residuais" },
-  { value: "Sumario_de_Validacao", label: "Sumario de Validação" },
+const solicitacoesOptions = [
+  { value: "", label: "Selecione a solicitação de análise" },
 ];
 
-const modoDeEnvioOptions = [
-  { value: "VIRTUAL", label: "Virtual" },
-  { value: "CORREIOS", label: "Correios" },
-];
-
-const solicitantesOptions = [
-  { value: "", label: "Selecione o solicitante" },
-];
-
-const CadastrarSolicitacaoDeAnalise = () => {
-  const [modoEnvioResultado, setModoEnvioResultado] = useState(
-    modoDeEnvioOptions[0]
-  );
-  const [tipoDeAnalise, setTipoDeAnaliseResultado] = useState(
-    tipoDeAnaliseOptions[0]
-  );
-
+const CadastrarItensDeAnalise = () => {
   const [loading, setLoading] = useState(true);
-
-  const [solicitante, setSolicitante] = useState(solicitantesOptions[0]);
-
   const [open, setOpen] = useState(false);
-  const usuario = useSelector((state: any) => state.auth.userInfo.nome);
+  const [solicitacao, setSolicitacao] = useState(solicitacoesOptions[0]);
 
-  const changeModoEnvio = (value: any) => {
-    console.log("value:", value);
-    setModoEnvioResultado(value);
-    formik.setFieldValue("modoEnvioResultado", value.value);
-  };
-
-  const changeSolicitante = (value: any) => {
-    console.log("value:", value);
-    setSolicitante(value);
-    formik.setFieldValue("solicitante", value.value);
-  };
-
-  const changeTipoDeAnalise = (value: any) => {
-    console.log("value:", value.value);
-    setTipoDeAnaliseResultado(value);
-    formik.setFieldValue("tipoDeAnalise", value.value);
-  };
+  const cancelButtonRef = useRef(null);
 
   const getSolicitantes = async () => {
     const data = await axios.get(
-      "https://uno-production.up.railway.app/solicitantes"
+      "https://uno-production.up.railway.app/solicitacoes-de-analise"
     );
 
-    const solicitantes = data.data
+    const solicitantes = data.data;
 
-    solicitantes.forEach((solicitante: { cnpj: any; nome: any; }) => {
-      solicitantesOptions.push({ value: solicitante.cnpj, label: solicitante.nome })
+    solicitantes.forEach((solicitacaoDeAnalise: { id: any; nomeProjeto: string; }) => {
+      solicitacoesOptions.push({ value: solicitacaoDeAnalise.id, label: solicitacaoDeAnalise.nomeProjeto })
     });
 
     setLoading(false);
+  };
 
-    console.log(solicitantesOptions)
+  const changeSolicitacao = (value: any) => {
+    setSolicitacao(value);
+    formik.setFieldValue("solicitacaoDeAnaliseId", value.value);
   };
 
   useEffect(() => {
     getSolicitantes();
   }, []);
-  const cancelButtonRef = useRef(null);
 
   const formik = useFormik({
     initialValues: {
-      nomeProjeto: "",
-      prazoAcordado: "",
-      tipoDeAnalise: "",
-      descricaoDosServicos: "",
-      informacoesAdicionais: "",
-      modoEnvioResultado: "",
-      solicitante: "",
-      responsavelAbertura: usuario,
+      quantidade: 0,
+      unidade: "",
+      tipoMaterial: "",
+      lote: "",
+      notaFiscal: "",
+      condicao: "",
+      observacao: "",
+      solicitacaoDeAnaliseId: "",
     },
 
     validationSchema: yup.object().shape({
-      nomeProjeto: yup.string().required("Campo obrigatório!"),
-      tipoDeAnalise: yup.string().required("Campo obrigatório!"),
-      descricaoDosServicos: yup.string().required("Campo obrigatório!"),
-      informacoesAdicionais: yup.string().nullable(),
-      modoEnvioResultado: yup.string().required("Campo obrigatório!"),
-      solicitante: yup
-        .string()
-        .required("Campo obrigatório!")
-        .length(14, "CNPJ deve ter 14 dígitos!"),
+      quantidade: yup.number().required("Campo obrigatório!"),
+      unidade: yup.string().required("Campo obrigatório!"),
+      tipoMaterial: yup.string().required("Campo obrigatório!"),
+      lote: yup.string().required("Campo obrigatório!"),
+      notaFiscal: yup.string().required("Campo obrigatório!"),
+      condicao: yup.string().required("Campo obrigatório!"),
+      observacao: yup.string().required("Campo obrigatório!"),
+      solicitacaoDeAnaliseId: yup.string().required("Campo obrigatório!"),
     }),
 
-    onSubmit: async (values: CadastrarSolicitacaoDeAnaliseRequest) => {
+    onSubmit: async (values: CadastrarItensDeAnaliseRequest) => {
       try {
         console.log("values:", values);
         //yyyy-MM-dd
         await axios.post(
-          "https://uno-production.up.railway.app/solicitacoes-de-analise",
+          "https://uno-production.up.railway.app/itens-de-analise",
           values
         );
         setOpen(true);
-        setModoEnvioResultado(modoDeEnvioOptions[0]);
-        setTipoDeAnaliseResultado(tipoDeAnaliseOptions[0]);
-        setSolicitante(solicitantesOptions[0]);
+        setSolicitacao(solicitacoesOptions[0]);
         formik.resetForm();
       } catch (error: any) {
-        console.log(error);
+        console.log(error)
       }
     },
   });
 
   return (
-    loading ? (<div></div>) : <div className="bg-gray-50">
+    loading ? (<div></div>) :<div className="bg-gray-50">
     <Navbar />
     <form className="mx-auto w-5/6 my-7" onSubmit={formik.handleSubmit}>
       <div className="space-y-12 ">
         <div className="border-b border-gray-900/10 pb-7">
           <h2 className="text-base font-inter font-semibold leading-7 text-gray-900">
-            Cadastrar Solicitação de Análise
+            Cadastrar itens de análise
           </h2>
           <p className="font-inter mt-1 text-sm leading-6 text-gray-600">
-            Preencha abaixo cuidadosamente as informações da solicitação de
-            análise.
+            Preencha abaixo cuidadosamente as informações dos itens de análise
           </p>
         </div>
       </div>
@@ -161,14 +114,14 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="solicitante"
               className="block text-sm font-medium leading-6 text-gray-900 font-inter"
             >
-              Solicitante
+              Solicitação de Análise
             </label>
             <div className="mt-2 relative">
-              <Select
-                onChange={changeSolicitante}
-                value={solicitante}
+            <Select
+                onChange={changeSolicitacao}
+                value={solicitacao}
                 isSearchable={true}
-                options={solicitantesOptions}
+                options={solicitacoesOptions}
                 primaryColor="indigo"
               />
             </div>
@@ -179,26 +132,26 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="nome"
               className="block text-sm font-medium leading-6 text-gray-900 font-inter"
             >
-              Nome do projeto
+              Tipo de material
             </label>
             <div className="mt-2 relative">
               <input
                 onChange={formik.handleChange}
-                value={formik.values.nomeProjeto}
+                value={formik.values.tipoMaterial}
                 onBlur={formik.handleBlur}
                 type="text"
-                name="nomeProjeto"
-                id="nomeProjeto"
-                autoComplete="nomeProjeto"
+                name="tipoMaterial"
+                id="tipoMaterial"
+                autoComplete="tipoMaterial"
                 className={`${
-                  formik.touched.nomeProjeto && formik.errors.nomeProjeto
+                  formik.touched.tipoMaterial && formik.errors.tipoMaterial
                     ? "focus:ring-red-500 ring-red-500"
                     : "focus:ring-indigo-600"
                 } text-sm py-2 px-3 rounded-md shadow-sm ring-1 font-inter ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full`}
               />
               <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
-                {formik.errors.nomeProjeto && formik.touched.nomeProjeto
-                  ? formik.errors.nomeProjeto
+                {formik.errors.tipoMaterial && formik.touched.tipoMaterial
+                  ? formik.errors.tipoMaterial
                   : ""}
               </p>
             </div>
@@ -209,26 +162,26 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="cnpj"
               className="block text-sm font-medium leading-6 text-gray-900 font-inter"
             >
-              Prazo acordado
+              Lote
             </label>
             <div className="relative mt-2">
               <input
                 onChange={formik.handleChange}
-                value={formik.values.prazoAcordado}
+                value={formik.values.lote}
                 onBlur={formik.handleBlur}
-                type="date"
-                name="prazoAcordado"
-                id="prazoAcordado"
-                autoComplete="prazoAcordado"
+                type="text"
+                name="lote"
+                id="lote"
+                autoComplete="lote"
                 className={`${
-                  formik.touched.prazoAcordado && formik.errors.prazoAcordado
+                  formik.touched.lote && formik.errors.lote
                     ? "focus:ring-red-500 ring-red-500"
                     : "focus:ring-indigo-600"
                 } text-sm py-2 px-3 rounded-md shadow-sm font-inter ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full`}
               />
               <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
-                {formik.errors.prazoAcordado && formik.touched.prazoAcordado
-                  ? formik.errors.prazoAcordado
+                {formik.errors.lote && formik.touched.lote
+                  ? formik.errors.lote
                   : ""}
               </p>
             </div>
@@ -239,19 +192,26 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="endereco"
               className="block text-sm font-medium leading-6 text-gray-900 font-inter"
             >
-              Tipo de análise
+              Nota fiscal
             </label>
             <div className="mt-2 relative">
-              <Select
-                options={tipoDeAnaliseOptions}
-                onChange={changeTipoDeAnalise}
-                value={tipoDeAnalise}
-                primaryColor="indigo"
+            <input
+                onChange={formik.handleChange}
+                value={formik.values.notaFiscal}
+                onBlur={formik.handleBlur}
+                type="text"
+                name="notaFiscal"
+                id="notaFiscal"
+                autoComplete="notaFiscal"
+                className={`${
+                  formik.touched.notaFiscal && formik.errors.notaFiscal
+                    ? "focus:ring-red-500 ring-red-500"
+                    : "focus:ring-indigo-600"
+                } text-sm py-2 px-3 rounded-md shadow-sm font-inter ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full`}
               />
-
               <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
-                {formik.errors.tipoDeAnalise && formik.touched.tipoDeAnalise
-                  ? formik.errors.tipoDeAnalise
+                {formik.errors.notaFiscal && formik.touched.notaFiscal
+                  ? formik.errors.notaFiscal
                   : ""}
               </p>
             </div>
@@ -262,28 +222,26 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="numero"
               className="block font-inter text-sm font-medium leading-6 text-gray-900"
             >
-              Descricao dos serviços
+              Quantidade
             </label>
             <div className="mt-2 relative">
-              <textarea
-                rows={5}
+            <input
                 onChange={formik.handleChange}
-                value={formik.values.descricaoDosServicos}
+                value={formik.values.quantidade}
                 onBlur={formik.handleBlur}
-                name="descricaoDosServicos"
-                id="descricaoDosServicos"
-                autoComplete="descricaoDosServicos"
+                type="number"
+                name="quantidade"
+                id="quantidade"
+                autoComplete="quantidade"
                 className={`${
-                  formik.touched.descricaoDosServicos &&
-                  formik.errors.descricaoDosServicos
+                  formik.touched.quantidade && formik.errors.quantidade
                     ? "focus:ring-red-500 ring-red-500"
                     : "focus:ring-indigo-600"
-                } text-sm py-2 px-3 font-inter rounded-md shadow-sm ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full resize-none`}
+                } text-sm py-2 px-3 rounded-md shadow-sm font-inter ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full`}
               />
               <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
-                {formik.errors.descricaoDosServicos &&
-                formik.touched.descricaoDosServicos
-                  ? formik.errors.descricaoDosServicos
+                {formik.errors.quantidade && formik.touched.quantidade
+                  ? formik.errors.quantidade
                   : ""}
               </p>
             </div>
@@ -294,28 +252,26 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="cidade"
               className="block text-sm font-medium leading-6 text-gray-900 font-inter"
             >
-              Informações adicionais
+              Unidade
             </label>
             <div className="mt-2 relative">
-              <textarea
-                rows={5}
+            <input
                 onChange={formik.handleChange}
-                value={formik.values.informacoesAdicionais}
+                value={formik.values.unidade}
                 onBlur={formik.handleBlur}
-                name="informacoesAdicionais"
-                id="informacoesAdicionais"
-                autoComplete="informacoesAdicionais"
+                type="text"
+                name="unidade"
+                id="unidade"
+                autoComplete="unidade"
                 className={`${
-                  formik.touched.informacoesAdicionais &&
-                  formik.errors.informacoesAdicionais
+                  formik.touched.unidade && formik.errors.unidade
                     ? "focus:ring-red-500 ring-red-500"
                     : "focus:ring-indigo-600"
-                } text-sm py-2 px-3 rounded-md font-inter shadow-sm ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full resize-none`}
+                } text-sm py-2 px-3 rounded-md shadow-sm font-inter ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full`}
               />
               <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
-                {formik.errors.informacoesAdicionais &&
-                formik.touched.informacoesAdicionais
-                  ? formik.errors.informacoesAdicionais
+                {formik.errors.unidade && formik.touched.unidade
+                  ? formik.errors.unidade
                   : ""}
               </p>
             </div>
@@ -326,19 +282,58 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="estado"
               className="block text-sm font-medium leading-6 text-gray-900 font-inter"
             >
-              Modo de envio dos resultados
+              Condição
             </label>
             <div className="mt-2 relative">
-              <Select
-                options={modoDeEnvioOptions}
-                onChange={changeModoEnvio}
-                value={modoEnvioResultado}
-                primaryColor="indigo"
+            <textarea
+                rows={5}
+                onChange={formik.handleChange}
+                value={formik.values.condicao}
+                onBlur={formik.handleBlur}
+                name="condicao"
+                id="condicao"
+                autoComplete="condicao"
+                className={`${
+                  formik.touched.condicao &&
+                  formik.errors.condicao
+                    ? "focus:ring-red-500 ring-red-500"
+                    : "focus:ring-indigo-600"
+                } text-sm py-2 px-3 font-inter rounded-md shadow-sm ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full resize-none`}
               />
               <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
-                {formik.errors.modoEnvioResultado &&
-                formik.touched.modoEnvioResultado
-                  ? formik.errors.modoEnvioResultado
+                {formik.errors.condicao && formik.touched.condicao
+                  ? formik.errors.condicao
+                  : ""}
+              </p>
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="estado"
+              className="block text-sm font-medium leading-6 text-gray-900 font-inter"
+            >
+              Observações
+            </label>
+            <div className="mt-2 relative">
+            <textarea
+                rows={5}
+                onChange={formik.handleChange}
+                value={formik.values.observacao}
+                onBlur={formik.handleBlur}
+                name="observacao"
+                id="observacao"
+                autoComplete="observacao"
+                className={`${
+                  formik.touched.observacao &&
+                  formik.errors.observacao
+                    ? "focus:ring-red-500 ring-red-500"
+                    : "focus:ring-indigo-600"
+                } text-sm py-2 px-3 font-inter rounded-md shadow-sm ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full resize-none`}
+              />
+              <p className="absolute -top-2 right-6 text-xs text-red-500 bg-white px-2 font-inter">
+                {formik.errors.observacao && formik.touched.observacao
+                  ? formik.errors.observacao
                   : ""}
               </p>
             </div>
@@ -399,7 +394,7 @@ const CadastrarSolicitacaoDeAnalise = () => {
                         as="h3"
                         className="text-lg font-semibold leading-6 text-gray-900 font-inter"
                       >
-                        Solicitanção cadastrada
+                        Itens de análise cadastrados
                       </Dialog.Title>
                     </div>
                   </div>
@@ -423,4 +418,4 @@ const CadastrarSolicitacaoDeAnalise = () => {
   );
 };
 
-export default CadastrarSolicitacaoDeAnalise;
+export default CadastrarItensDeAnalise;

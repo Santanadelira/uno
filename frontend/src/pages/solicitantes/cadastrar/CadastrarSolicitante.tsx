@@ -65,7 +65,7 @@ const CadastrarSolicitante = () => {
 
     onSubmit: async (values: CadastrarSolicitanteRequest) => {
       try {
-        const response = await axios.post(
+        await axios.post(
           "https://uno-production.up.railway.app/solicitantes/",
           values
         );

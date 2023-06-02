@@ -58,7 +58,7 @@ const Login: React.FC = () => {
     <div className="min-h-screen flex justify-center items-center">
       <div className="w-4/5 sm:w-96">
         <img src={logo} alt="logo" className="h-10 mx-auto" />
-        <h3 className="text-center font-inter font-semibold text-xl sm:text-2xl text-gray-800 my-7">
+        <h3 className="text-center font-inter font-semibold text-xl text-gray-800 my-7">
           Informe suas credenciais
         </h3>
         <form className="relative" onSubmit={formik.handleSubmit}>

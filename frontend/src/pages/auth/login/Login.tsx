@@ -38,7 +38,7 @@ const Login: React.FC = () => {
     onSubmit: async (values: LoginRequest) => {
       try {
         const response = await axios.post(
-          "http://localhost:3001/auth/login",
+          "https://uno-production.up.railway.app/auth/login",
           values
         );
         const data = response.data;

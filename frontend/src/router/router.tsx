@@ -3,6 +3,7 @@ import App from "../App";
 import Login from "../pages/auth/login/Login";
 import PrivateRoute from "../components/privateRoutes/PrivateRoute";
 import Dashboard from "../pages/dashboard/Dashboard";
+import CadastrarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/cadastrar/CadastrarSolicitacaoDeAnalise";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
             path: "",
             element: <Dashboard />,
           },
+          {
+            path: "/solicitacoes-de-analise/cadastrar",
+            element: <CadastrarSolicitacaoDeAnalise />,
+          }
         ],
       },
     ],

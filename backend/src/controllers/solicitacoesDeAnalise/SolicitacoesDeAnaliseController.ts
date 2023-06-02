@@ -13,8 +13,7 @@ export const cadastrarSolicitacaoDeAnalise = async (
       .string()
       .min(3, "Nome do projeto deve conter no mínimo 3 caractéres!"),
     prazoAcordado: z
-      .date()
-      .min(new Date(), "Prazo acordado deve ser maior que a data atual!"),
+      .string(),
     tipoDeAnalise: z
       .string()
       .min(3, "Tipo de análise deve conter no mínimo 3 caractéres!"),
@@ -54,7 +53,7 @@ export const cadastrarSolicitacaoDeAnalise = async (
   await prisma.solicitacaoDeAnalise.create({
     data: {
       nomeProjeto,
-      prazoAcordado,
+      prazoAcordado: new Date(prazoAcordado),
       tipoDeAnalise: tipoDeAnalise as TipoDeAnalise,
       descricaoDosServicos,
       informacoesAdicionais,

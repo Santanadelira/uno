@@ -10,7 +10,7 @@ import { Usuario } from "../../entities/entities";
 
 dotenv.config();
 
-export const cadastrarSolicitante = async (
+export const cadastrarUsuario = async (
   req: express.Request,
   res: express.Response
 ) => {

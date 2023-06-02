@@ -94,7 +94,7 @@ model SolicitacaoDeAnalise {
   itensDeAnalise        ItemDeAnalise[]
   informacoesAdicionais String?
   modoEnvioResultado    ModoDeEnvioResultado
-  responsavelPeloEnvio  String
+  responsavelPeloEnvio  String?
   dataEnvioResultados   DateTime?
   responsavelAbertura   String
   Solicitante           Solicitante?         @relation(fields: [solicitanteCnpj], references: [cnpj])
@@ -102,17 +102,18 @@ model SolicitacaoDeAnalise {
 }
 
 model ItemDeAnalise {
-  id                        String                @id @default(dbgenerated("(concat('AM_', substring(gen_random_uuid()::text from 1 for 7)))"))
-  quantidade                Int
-  unidade                   String
-  tipoMaterial              String
-  lote                      String?
-  notaFiscal                String?
-  condicao                  String?
-  observacao                String?
-  SolicitacaoDeAnalise      SolicitacaoDeAnalise? @relation(fields: [solicitacaoDeAnaliseNumSA], references: [id])
-  solicitacaoDeAnaliseNumSA String?
-  Ensaio                    Ensaio[]
+  id                     String               @id @default(dbgenerated("(concat('AM_', substring(gen_random_uuid()::text from 1 for 7)))"))
+  quantidadeRecebida     Int
+  quantidadeDisponivel   Int
+  unidade                String
+  tipoMaterial           String
+  lote                   String?
+  notaFiscal             String?
+  condicao               String?
+  observacao             String?
+  solicitacaoDeAnalise   SolicitacaoDeAnalise @relation(fields: [solicitacaoDeAnaliseId], references: [id])
+  Ensaio                 Ensaio[]
+  solicitacaoDeAnaliseId String
 }
 
 model Ensaio {
@@ -120,7 +121,7 @@ model Ensaio {
   nomeEnsaio      Ensaios
   especificacao   String
   dataDeAnalise   DateTime?
-  statusEnsaio    StatusEnsaio
+  statusEnsaio    StatusEnsaio  @default(Pendente)
   resultado       String?
   itemDeAnalise   ItemDeAnalise @relation(fields: [itemDeAnaliseId], references: [id])
   itemDeAnaliseId String

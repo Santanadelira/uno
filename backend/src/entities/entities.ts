@@ -78,13 +78,13 @@ export class SolicitacaoDeAnalise {
   prazoAcordado: Date;
   tipoDeAnalise: TipoDeAnalise;
   descricaoDosServicos: string;
-  ensaios: Ensaios[];
+  ensaios: Ensaios[] | null;
   informacoesAdicionais: string | null;
   modoEnvioResultados: ModoDeEnvioResultado;
   responsavelPeloEnvio: string | null;
   dataEnvioResultados: Date | null;
   responsavelAbertura: string;
-  solicitante: Solicitante;
+  solicitante: Solicitante | null;
   itensAnalise: ItemDeAnalise[] | null;
 
   constructor(
@@ -97,13 +97,13 @@ export class SolicitacaoDeAnalise {
     prazoAcordado: Date,
     tipoDeAalise: unknown,
     descricaoDosServicos: string,
-    ensaios: Ensaios[],
+    ensaios: Ensaios[] | null,
     informacoesAdicionas: string | null,
     modoEnvioResultado: unknown,
     responsavelPeloEnvio: string | null,
     dataEnvioResultados: Date | null,
     responsavelAbertura: string,
-    solicitante: Solicitante,
+    solicitante: Solicitante | null,
     itensAnalise: ItemDeAnalise[] | null
   ) {
     this.id = id;
@@ -128,30 +128,33 @@ export class SolicitacaoDeAnalise {
 
 export class ItemDeAnalise {
   id: string;
-  quantidade: number;
+  quantidadeRecebida: number;
+  quantidadeDisponivel: number;
   unidade: string;
   tipoMaterial: string;
   lote: string | null;
   notaFiscal: string | null;
   condicao: string | null;
   observacao: string | null;
-  solicitacaoDeAnalise: SolicitacaoDeAnalise;
+  solicitacaoDeAnalise: SolicitacaoDeAnalise | null;
   ensaios: Ensaio[] | null;
 
   constructor(
     id: string,
-    quantidade: number,
+    quantidadeRecebida: number,
+    quantidadeDisponivel: number,
     unidade: string,
     tipoMaterial: string,
     lote: string | null,
     notaFiscal: string | null,
     condicao: string | null,
     observacao: string | null,
-    solicitacaoDeAnalise: SolicitacaoDeAnalise,
+    solicitacaoDeAnalise: SolicitacaoDeAnalise | null,
     ensaios: Ensaio[] | null
   ) {
     this.id = id;
-    this.quantidade = quantidade;
+    this.quantidadeRecebida = quantidadeRecebida;
+    this.quantidadeDisponivel = quantidadeDisponivel;
     this.unidade = unidade;
     this.tipoMaterial = tipoMaterial;
     this.lote = lote;
@@ -170,7 +173,7 @@ export class Ensaio {
   dataDeAnalise: Date | null;
   statusEnsaio: StatusEnsaio;
   resultado: string | null;
-  itemDeAnalise: ItemDeAnalise;
+  itemDeAnalise: ItemDeAnalise | null;
 
   constructor(
     id: string,
@@ -179,7 +182,7 @@ export class Ensaio {
     dataDeAnalise: Date | null,
     statusEnsaio: unknown,
     resultado: string | null,
-    itemDeAnalise: ItemDeAnalise
+    itemDeAnalise: ItemDeAnalise | null
   ) {
     this.id = id;
     this.nomeEnsaio = nomeEnsaio as Ensaios;

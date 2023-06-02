@@ -4,6 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import { corsOptions } from "./security/cors";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ server.use(cors(corsOptions));
 server.use(helmet());
 server.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
+server.use('/', routes())
 
 const PORT = process.env.PORT || 3000;
 

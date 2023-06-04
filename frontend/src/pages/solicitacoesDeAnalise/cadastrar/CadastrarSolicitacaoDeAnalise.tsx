@@ -102,7 +102,7 @@ const CadastrarSolicitacaoDeAnalise = () => {
       tipoDeAnalise: "",
       descricaoDosServicos: "",
       informacoesAdicionais: "",
-      modoEnvioResultado: "",
+      modoEnvioResultado: "VIRTUAL",
       solicitante: "",
       responsavelAbertura: usuario,
     },

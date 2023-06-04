@@ -11,6 +11,7 @@ import axios from "axios";
 import ItemLista from "../../../components/itemLista/ItemLista.tsx";
 import Paginacao from "../../../components/paginacao/Paginacao.tsx";
 import { setSolicitacoes } from "../../../features/solicitacoes/solicitacoesSlice.ts";
+import Tabela from "../../../components/tabela/Tabela.tsx";
 
 interface SolicitacoesState {
   id: string;
@@ -44,39 +45,18 @@ const ConsultarSolicitacaoDeAnalise = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const solicitacoes = useSelector(selectSolicitacoes);
-  const [solicitacoesFiltradas, setSolicitacoesFiltradas] =
-    useState(solicitacoes);
-  const [nomeProcura, setNomeProcura] = useState("");
-  const [paginaAtual, setPaginaAtual] = useState(1);
-  const solicitacoesPorPagina = 5;
-  const lastSolicitacaoIndex = paginaAtual * solicitacoesPorPagina;
-  const firstSolicitacaoIndex = lastSolicitacaoIndex - solicitacoesPorPagina;
+  const dados: any = [];
 
-  const dadosPaginaAtual =
-    solicitacoesFiltradas &&
-    solicitacoesFiltradas
-      .slice(firstSolicitacaoIndex, lastSolicitacaoIndex)
-      .map((solicitacoes: SolicitacoesState) => (
-        <ItemLista
-          id={`${solicitacoes.id}`}
-          titulo={`${solicitacoes.nomeProjeto}`}
-          descricao={`${keyMap[solicitacoes.tipoDeAnalise]}`}
-          rota="solicitacoes-de-analise"
-          DescricaoIcon={
-            <BeakerIcon
-              className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          }
-          BotaoIcon={
-            <EyeIcon
-              className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          }
-          acao="Consultar"
-        />
-      ));
+  solicitacoes &&
+    solicitacoes.map((solicitacao: any) => {
+      dados.push({
+        id: solicitacao.id,
+        itemRota: solicitacao.id,
+        nome: solicitacao.nomeProjeto,
+        info1: solicitacao.Solicitante.nome,
+        info2: keyMap[solicitacao.tipoDeAnalise],
+      });
+    });
 
   const getSolicitacoes = async () => {
     const response = await axios.get(
@@ -84,23 +64,6 @@ const ConsultarSolicitacaoDeAnalise = () => {
     );
     dispatch(setSolicitacoes({ solicitacoes: response.data }));
     setLoading(false);
-  };
-
-  useEffect(() => {
-    setSolicitacoesFiltradas(
-      solicitacoes.filter(
-        (solicitacao: SolicitacoesState) =>
-          solicitacao.nomeProjeto &&
-          solicitacao.nomeProjeto
-            .toLocaleLowerCase()
-            .includes(nomeProcura.toLocaleLowerCase())
-      )
-    );
-    setPaginaAtual(1);
-  }, [nomeProcura]);
-
-  const changeNomeProcura = (e: React.FormEvent<HTMLInputElement>) => {
-    setNomeProcura(e.currentTarget.value);
   };
 
   useEffect(() => {
@@ -114,25 +77,12 @@ const ConsultarSolicitacaoDeAnalise = () => {
       <Navbar />
 
       <div className="w-5/6 mx-auto">
-        <h2 className="font-semibold leading-7 text-gray-900 font-inter mt-7 border-b border-b-gray-900/10 pb-7">
-          Consultar Solicitações de Análise
-        </h2>
-
-        <div className="relative mt-7">
-          <input
-            type="text"
-            onChange={changeNomeProcura}
-            className="focus:ring-indigo-600 text-sm py-2 px-3 rounded-md shadow-sm font-inter ring-1 ring-gray-300 ring-inset focus:ring-2 focus:ring-inset focus:outline-none w-full"
-            placeholder="Digite o nome do projeto"
-          />
-          <MagnifyingGlassIcon className="h-6 w-6 absolute right-2 text-gray-800 top-1.5" />
-        </div>
-        {dadosPaginaAtual}
-        <Paginacao
-          totalItens={solicitacoesFiltradas && solicitacoesFiltradas.length}
-          itensPorPagina={solicitacoesPorPagina}
-          setPaginaAtual={setPaginaAtual}
-          paginaAtual={paginaAtual}
+        <Tabela
+          dados={dados}
+          titulo="Solicitações de Análise"
+          textoPesquisa="Pesquisar Solicitação de Análise"
+          colunas={["Id", "Nome do Projeto", "Solicitante", "Tipo de Análise"]}
+          consultarRota="/solicitacoes-de-analise"
         />
       </div>
     </div>

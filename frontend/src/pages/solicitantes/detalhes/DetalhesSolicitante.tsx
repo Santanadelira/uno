@@ -157,7 +157,7 @@ const DetalhesSolicitante = () => {
             "Tipo de análise"]}
           titulo="Solicitações de análise"
           consultarRota="/solicitacoes-de-analise"
-          textoPesquisa="Pesquisar solicitações de análise do solicitante"
+          textoPesquisa="Pesquisar Solicitações de Análise"
           key={solicitante[0].cnpj}
         />
       </div>

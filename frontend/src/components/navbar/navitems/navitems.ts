@@ -21,16 +21,9 @@ export const navitems = [
             {
                 id: 'd2',
                 titulo: "Consultar",
-                descricao: "Consulte as informações dos solicitantes e suas solicitações de análise!",
+                descricao: "Consulte as informações dos solicitantes!",
                 path: "/solicitantes/consultar",
                 icon: MagnifyingGlassIcon
-            },
-            {
-                id: 'd3',
-                titulo: "Gerenciar",
-                descricao: "Gerencie as informações dos solicitantes!",
-                path: "/solicitantes/gerenciar",
-                icon: PencilIcon
             },
         ]
     },
@@ -52,13 +45,6 @@ export const navitems = [
                 path: "/solicitacoes-de-analise/consultar",
                 icon: MagnifyingGlassIcon
             },
-            {
-                id: 'd3',
-                titulo: "Gerenciar",
-                descricao: "Gerencie as informações das solicitações de análise!",
-                path: "/solicitacoes-de-analise/gerenciar",
-                icon: PencilIcon
-            },
         ]
     }, 
     {
@@ -78,13 +64,6 @@ export const navitems = [
                 descricao: "Consulte as informações das solicitações de análise!",
                 path: "/solicitacoes-de-analise/consultar",
                 icon: MagnifyingGlassIcon
-            },
-            {
-                id: 'd3',
-                titulo: "Gerenciar",
-                descricao: "Gerencie as informações das solicitações de análise!",
-                path: "/solicitacoes-de-analise/gerenciar",
-                icon: PencilIcon
             },
         ]
     },

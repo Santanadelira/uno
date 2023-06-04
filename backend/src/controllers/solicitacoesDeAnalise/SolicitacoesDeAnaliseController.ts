@@ -78,6 +78,7 @@ export const listarSolicitacoesDeAnalise = async (
     {
       include: {
         Solicitante: true,
+        itensDeAnalise: true,
       },
     }
   );

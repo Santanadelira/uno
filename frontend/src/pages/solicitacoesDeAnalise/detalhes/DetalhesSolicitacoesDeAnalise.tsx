@@ -20,19 +20,6 @@ interface SolicitacoesState {
   solicitanteCnpj: string;
 }
 
-interface SolicitanteState {
-  cnpj: string;
-  nome: string;
-  cep: string;
-  endereco: string;
-  numero: string;
-  cidade: string;
-  estado: string;
-  responsavel: string;
-  email: string;
-  telefone: string;
-}
-
 const keyMap: Record<string, string> = {
   Desenvolvimento: "Desenvolvimento",
   Degradacao_Forcada: "Degradação Forçada",

@@ -26,11 +26,11 @@ const Paginacao = ({
     paginaAtual === Math.ceil(totalItens / itensPorPagina);
 
   return (
-    <div className="flex items-center gap-10 justify-center border-t border-gray-200 px-4 py-3 sm:px-6">
-      <button onClick={paginaAnterior} disabled={primeiraPagina} className={`px-4 shadow-sm rounded-md font-inter py-2 font-medium text-gray-700 text-sm border border-gray-300 ${primeiraPagina ? "bg-gray-200" : "bg-white hover:bg-indigo-600 hover:text-white"}`}>
+    <div className="flex items-center gap-3 justify-end border-t border-gray-200 px-4 py-3 sm:px-6">
+      <button onClick={paginaAnterior} disabled={primeiraPagina} className={`px-2 shadow-sm rounded-md font-inter py-2 font-medium text-gray-700 text-sm border border-gray-300 ${primeiraPagina ? "bg-gray-100 text-gray-400/100" : "bg-white hover:bg-indigo-600 hover:border-white hover:text-white"}`}>
         Anterior
       </button>
-      <button onClick={proximaPagina} disabled={ultimaPagina} className={`px-4 shadow-sm rounded-md font-inter py-2 font-medium text-gray-700 text-sm border border-gray-300 ${ultimaPagina ? "bg-gray-200" : "bg-white hover:bg-indigo-600 hover:text-white"}`}>
+      <button onClick={proximaPagina} disabled={ultimaPagina} className={`px-2 shadow-sm rounded-md font-inter py-2 font-medium text-gray-700 text-sm border border-gray-300 ${ultimaPagina ? "bg-gray-100 text-gray-400/100" : "bg-white hover:bg-indigo-600 hover:border-white hover:text-white"}`}>
         Próxima
       </button>
     </div>

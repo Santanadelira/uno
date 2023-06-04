@@ -86,10 +86,14 @@ const CadastrarSolicitante = () => {
     );
     console.log(response);
     const data = response.data;
-
-    formik.setFieldValue("endereco", data.logradouro);
+    console.log(data.erro)
+    if(data.erro){
+      formik.errors.cep = "CEP inválido!"
+    } else {
+      formik.setFieldValue("endereco", data.logradouro);
     formik.setFieldValue("cidade", data.localidade);
     formik.setFieldValue("estado", data.uf);
+    }
   };
 
   const handleBuscaCepEnter = async (e: any) => {
@@ -100,10 +104,13 @@ const CadastrarSolicitante = () => {
       );
       console.log(response);
       const data = response.data;
-
-      formik.setFieldValue("endereco", data.logradouro);
+      if(data.erro){
+        formik.errors.cep = "CEP inválido!"
+      } else {
+        formik.setFieldValue("endereco", data.logradouro);
       formik.setFieldValue("cidade", data.localidade);
       formik.setFieldValue("estado", data.uf);
+      }
     }
   };
 

@@ -9,6 +9,7 @@ import CadastrarSolicitante from "../pages/solicitantes/cadastrar/CadastrarSolic
 import ConsultarSolicitantes from "../pages/solicitantes/consultar/ConsultarSolicitantes";
 import DetalhesSolicitante from "../pages/solicitantes/detalhes/DetalhesSolicitante";
 import ConsultarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/consultar/ConsultarSolicitacaoDeAnalise";
+import DetalhesSolicitacoesDeAnalise from "../pages/solicitacoesDeAnalise/detalhes/DetalhesSolicitacoesDeAnalise";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
           {
             path: "/solicitacoes-de-analise/consultar",
             element: <ConsultarSolicitacaoDeAnalise />
+          },
+          {
+            path: "/solicitacoes-de-analise/:id",
+            element: <DetalhesSolicitacoesDeAnalise />
           },
           {
             path: "/itens-de-analise/cadastrar",

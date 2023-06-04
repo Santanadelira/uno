@@ -32,10 +32,14 @@ const solicitantesSlice = createSlice({
         ),
       };
     },
+    clearSolicitantes: (state) => {
+      state.solicitantes = [];
+      return state
+    }
   },
 });
 
-export const { setSolicitantes, procurarPorNome } = solicitantesSlice.actions;
+export const { setSolicitantes, procurarPorNome, clearSolicitantes } = solicitantesSlice.actions;
 
 export default solicitantesSlice.reducer;
 

@@ -21,7 +21,7 @@ const initialState = {
   solicitacoes: [],
 };
 
-const solicitantesSlice = createSlice({
+const solicitacoesSlice = createSlice({
   name: "solicitacoes",
   initialState,
   reducers: {
@@ -31,21 +31,25 @@ const solicitantesSlice = createSlice({
     procurarPorNome: (state, action) => {
       return {
         ...state,
-        users: [...state.solicitacoes].filter((solicitante: SolicitacoesState) =>
-          solicitante.nomeProjeto.toLowerCase().includes(action.payload.toLowerCase())
+        users: [...state.solicitacoes].filter((solicitacoes: SolicitacoesState) =>
+          solicitacoes.nomeProjeto.toLowerCase().includes(action.payload.toLowerCase())
         ),
       };
     },
+    clearSolicitacoes: (state) => {
+      state.solicitacoes = [];
+      return state
+    }
   },
 });
 
-export const { setSolicitacoes, procurarPorNome } = solicitantesSlice.actions;
+export const { setSolicitacoes, procurarPorNome, clearSolicitacoes } = solicitacoesSlice.actions;
 
-export default solicitantesSlice.reducer;
+export default solicitacoesSlice.reducer;
 
 export const selectSolicitacoes = (state: any) =>
-  state.solicitantes.solicitantes;
+  state.solicitacoes.solicitacoes;
 export const filterSolicitacoes = (state: any, nome: string) =>
-  state.solicitantes.solicitantes.filter((solicitante: SolicitacoesState) =>
-    solicitante.nomeProjeto.includes(nome)
+  state.solicitacoes.solicitacoes.filter((solicitacoes: SolicitacoesState) =>
+    solicitacoes.nomeProjeto.includes(nome)
   );

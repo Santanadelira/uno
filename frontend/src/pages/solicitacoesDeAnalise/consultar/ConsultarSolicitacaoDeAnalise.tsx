@@ -6,7 +6,7 @@ import {
 import Navbar from "../../../components/navbar/Navbar.tsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSolicitantes as selectSolicitacoes } from "../../../features/solicitantes/solicitantesSlice.ts";
+import { selectSolicitacoes } from "../../../features/solicitacoes/solicitacoesSlice.ts";
 import axios from "axios";
 import ItemLista from "../../../components/itemLista/ItemLista.tsx";
 import Paginacao from "../../../components/paginacao/Paginacao.tsx";
@@ -28,6 +28,18 @@ interface SolicitacoesState {
   responsavelPeloEnvio: string;
 }
 
+const keyMap: Record<string, string> = {
+  Desenvolvimento: "Desenvolvimento",
+  Degradacao_Forcada: "Degradação Forçada",
+  Validacao: "Validação",
+  Controle: "Controle",
+  Solubilidade: "Solubilidade",
+  Estabilidade: "Estabilidade",
+  Perfil_de_Dissolucao: "Perfil de Dissolução",
+  Solventes_Residuais: "Solventes Residuais",
+  Sumario_de_Validacao: "Sumário de Validação",
+};
+
 const ConsultarSolicitacaoDeAnalise = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -36,20 +48,20 @@ const ConsultarSolicitacaoDeAnalise = () => {
     useState(solicitacoes);
   const [nomeProcura, setNomeProcura] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
-  const solicitantesPorPagina = 5;
-  const lastSolicitanteIndex = paginaAtual * solicitantesPorPagina;
-  const firstSolicitanteIndex = lastSolicitanteIndex - solicitantesPorPagina;
+  const solicitacoesPorPagina = 5;
+  const lastSolicitacaoIndex = paginaAtual * solicitacoesPorPagina;
+  const firstSolicitacaoIndex = lastSolicitacaoIndex - solicitacoesPorPagina;
 
   const dadosPaginaAtual =
     solicitacoesFiltradas &&
     solicitacoesFiltradas
-      .slice(firstSolicitanteIndex, lastSolicitanteIndex)
+      .slice(firstSolicitacaoIndex, lastSolicitacaoIndex)
       .map((solicitacoes: SolicitacoesState) => (
         <ItemLista
           id={`${solicitacoes.id}`}
           titulo={`${solicitacoes.nomeProjeto}`}
-          descricao={`${solicitacoes.tipoDeAnalise}`}
-          rota="solicitantes"
+          descricao={`${keyMap[solicitacoes.tipoDeAnalise]}`}
+          rota="solicitacoes-de-analise"
           DescricaoIcon={
             <BeakerIcon
               className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
@@ -66,7 +78,7 @@ const ConsultarSolicitacaoDeAnalise = () => {
         />
       ));
 
-  const getSolicitantes = async () => {
+  const getSolicitacoes = async () => {
     const response = await axios.get(
       "https://uno-production.up.railway.app/solicitacoes-de-analise"
     );
@@ -74,24 +86,26 @@ const ConsultarSolicitacaoDeAnalise = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    setSolicitacoesFiltradas(
+      solicitacoes.filter(
+        (solicitacao: SolicitacoesState) =>
+          solicitacao.nomeProjeto &&
+          solicitacao.nomeProjeto
+            .toLocaleLowerCase()
+            .includes(nomeProcura.toLocaleLowerCase())
+      )
+    );
+    setPaginaAtual(1);
+  }, [nomeProcura]);
+
   const changeNomeProcura = (e: React.FormEvent<HTMLInputElement>) => {
     setNomeProcura(e.currentTarget.value);
   };
 
   useEffect(() => {
-    getSolicitantes();
-  });
-
-  useEffect(() => {
-    setSolicitacoesFiltradas(
-      solicitacoes.filter((solicitacao: SolicitacoesState) =>
-        solicitacao.nomeProjeto
-          .toLocaleLowerCase()
-          .includes(nomeProcura.toLocaleLowerCase())
-      )
-    );
-    setPaginaAtual(1);
-  }, [nomeProcura]);
+    getSolicitacoes();
+  }, []);
 
   return loading ? (
     <div></div>
@@ -116,7 +130,7 @@ const ConsultarSolicitacaoDeAnalise = () => {
         {dadosPaginaAtual}
         <Paginacao
           totalItens={solicitacoesFiltradas && solicitacoesFiltradas.length}
-          itensPorPagina={solicitantesPorPagina}
+          itensPorPagina={solicitacoesPorPagina}
           setPaginaAtual={setPaginaAtual}
           paginaAtual={paginaAtual}
         />

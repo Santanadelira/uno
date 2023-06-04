@@ -12,6 +12,8 @@ import { navitems } from "./navitems/navitems.ts";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../features/auth/authSlice.ts";
+import { clearSolicitacoes } from "../../features/solicitacoes/solicitacoesSlice.ts";
+import { clearSolicitantes } from "../../features/solicitantes/solicitantesSlice.ts";
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -24,10 +26,12 @@ export default function Example() {
 
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(clearSolicitacoes())
+    dispatch(clearSolicitantes())
   }
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white">
       <nav
         className="mx-auto flex w-5/6 max-w-7xl items-center justify-between py-4"
         aria-label="Global"

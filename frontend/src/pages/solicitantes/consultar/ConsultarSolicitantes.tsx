@@ -25,8 +25,6 @@ const ConsultarSolicitantes = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const solicitantes = useSelector(selectSolicitantes);
-
-  const [paginaAtual, setPaginaAtual] = useState(1);
   const dados: any = [];
 
   solicitantes &&

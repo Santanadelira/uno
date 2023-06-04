@@ -75,7 +75,11 @@ export const listarSolicitacoesDeAnalise = async (
   res: express.Response
 ) => {
   const solicitacoesDeAnaliseDados = await prisma.solicitacaoDeAnalise.findMany(
-    {}
+    {
+      include: {
+        Solicitante: true,
+      },
+    }
   );
   return res.status(200).json(solicitacoesDeAnaliseDados);
 };

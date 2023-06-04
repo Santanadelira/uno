@@ -262,7 +262,7 @@ const CadastrarSolicitacaoDeAnalise = () => {
               htmlFor="numero"
               className="block font-inter text-sm font-medium leading-6 text-gray-900"
             >
-              Descricao dos serviços
+              Descrição dos serviços
             </label>
             <div className="mt-2 relative">
               <textarea

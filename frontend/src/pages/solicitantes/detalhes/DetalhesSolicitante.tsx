@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Navbar from "../../../components/navbar/Navbar.tsx";
 import { useParams } from "react-router-dom";
+import Tabela from "../../../components/tabela/Tabela.tsx";
 
 interface SolicitanteState {
   cnpj: string;
@@ -15,6 +16,18 @@ interface SolicitanteState {
   telefone: string;
 }
 
+const keyMap: Record<string, string> = {
+  Desenvolvimento: "Desenvolvimento",
+  Degradacao_Forcada: "Degradação Forçada",
+  Validacao: "Validação",
+  Controle: "Controle",
+  Solubilidade: "Solubilidade",
+  Estabilidade: "Estabilidade",
+  Perfil_de_Dissolucao: "Perfil de Dissolução",
+  Solventes_Residuais: "Solventes Residuais",
+  Sumario_de_Validacao: "Sumário de Validação",
+};
+
 const DetalhesSolicitante = () => {
   const { cnpj } = useParams();
   const solicitante = useSelector((state: any) =>
@@ -23,7 +36,26 @@ const DetalhesSolicitante = () => {
     )
   );
 
-  console.log(solicitante);
+  const dados: any = [];
+
+  solicitante[0].solicitacoesDeAnalise && solicitante[0].solicitacoesDeAnalise.map((solicitacao: any) => {
+    dados.push({
+      id: solicitacao.id,
+      itemRota: solicitacao.id,
+      nome: solicitacao.nomeProjeto,
+      info1: new Date(solicitacao.aberturaSA).toLocaleDateString(
+        "pt-BR",
+        {
+          timeZone: "America/Sao_Paulo",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }
+      ),
+      info2: keyMap[solicitacao.tipoDeAnalise],
+    });
+  })
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -115,6 +147,19 @@ const DetalhesSolicitante = () => {
             </div>
           </dl>
         </div>
+
+        <Tabela 
+          dados={dados}
+          colunas={[
+            "Id",
+            "Nome do projeto",
+            "Abertura",
+            "Tipo de análise"]}
+          titulo="Solicitações de análise"
+          consultarRota="/solicitacoes-de-analise"
+          textoPesquisa="Pesquisar solicitações de análise do solicitante"
+          key={solicitante[0].cnpj}
+        />
       </div>
     </div>
   );

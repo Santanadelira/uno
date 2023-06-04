@@ -9,9 +9,7 @@ import Paginacao from "../paginacao/Paginacao";
 
 interface TabelaProps {
   titulo: string;
-  botao: string;
   colunas: string[];
-  botaoRota: string;
   consultarRota: string;
   textoPesquisa: string;
   dados: [
@@ -25,7 +23,7 @@ interface TabelaProps {
   ];
 }
 
-const Tabela = ({ titulo, botao, colunas, dados, textoPesquisa, botaoRota, consultarRota }: TabelaProps) => {
+const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: TabelaProps) => {
   const classNames = (...classes: string[]) => {
     return classes.filter(Boolean).join(" ");
   };
@@ -62,13 +60,6 @@ const Tabela = ({ titulo, botao, colunas, dados, textoPesquisa, botaoRota, consu
             <p className="text-base font-inter font-semibold leading-7 text-gray-900">
               {titulo}
             </p>
-            <div>
-              <Link to={botaoRota} className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-4 py-3 bg-indigo-600 hover:bg-indigo-500 focus:outline-none rounded-md">
-                <p className="text-xs font-inter font-medium leading-none text-white">
-                  {botao}
-                </p>
-              </Link>
-            </div>
           </div>
           <div className="relative mt-7 border-b border-b-gray-900/10 pb-7">
             <input

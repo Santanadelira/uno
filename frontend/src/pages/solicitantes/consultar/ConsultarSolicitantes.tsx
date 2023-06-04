@@ -69,8 +69,6 @@ const ConsultarSolicitantes = () => {
         <Tabela
           titulo="Solicitantes"
           textoPesquisa="Pesquisar Solicitante"
-          botao="Cadastrar Solicitante"
-          botaoRota="/solicitantes/cadastrar"
           consultarRota="/solicitantes"
           colunas={["CNPJ", "Nome", "Responsável", "Email"]}
           dados={dados}

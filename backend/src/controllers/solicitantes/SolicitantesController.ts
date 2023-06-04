@@ -1,9 +1,6 @@
 import express from "express";
 import { z } from "zod";
 import { prisma } from "../../prisma/prisma";
-import {
-  Solicitante,
-} from "../../entities/entities";
 
 export const cadastrarSolicitante = async (
   req: express.Request,
@@ -67,7 +64,10 @@ export const listarSolicitantes = async (
   const dadosSolicitantes = await prisma.solicitante.findMany({
     include: {
       solicitacoesDeAnalise: true,
-    }
+    },
+    orderBy: {
+      nome: "asc",
+    },
   });
   return res.status(200).json(dadosSolicitantes);
 };
@@ -97,7 +97,7 @@ export const procurarSolicitante = async (
   return res.status(200).json({ solicitante });
 };
 
-export const editarContato = async (
+export const editarSolicitante = async (
   req: express.Request,
   res: express.Response
 ) => {

@@ -139,7 +139,7 @@ const CadastrarSolicitacaoDeAnalise = () => {
   });
 
   return (
-    loading ? (<div></div>) : <div className="bg-gray-50">
+    loading ? (<div></div>) : <div>
     <Navbar />
     <form className="mx-auto w-5/6 my-7" onSubmit={formik.handleSubmit}>
       <div className="space-y-12 ">

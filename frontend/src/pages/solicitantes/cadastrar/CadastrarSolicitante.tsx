@@ -9,7 +9,7 @@ import axios from "axios";
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export interface CadastrarSolicitanteRequest {
+interface CadastrarSolicitanteRequest {
   cnpj: string;
   nome: string;
   cep: string;
@@ -115,7 +115,7 @@ const CadastrarSolicitante = () => {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div>
       <Navbar />
       <form className="mx-auto w-5/6 my-7" onSubmit={formik.handleSubmit}>
         <div className="space-y-12 ">

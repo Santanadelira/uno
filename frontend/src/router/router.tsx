@@ -10,6 +10,7 @@ import ConsultarSolicitantes from "../pages/solicitantes/consultar/ConsultarSoli
 import DetalhesSolicitante from "../pages/solicitantes/detalhes/DetalhesSolicitante";
 import ConsultarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/consultar/ConsultarSolicitacaoDeAnalise";
 import DetalhesSolicitacoesDeAnalise from "../pages/solicitacoesDeAnalise/detalhes/DetalhesSolicitacoesDeAnalise";
+import EditarSolicitante from "../pages/solicitantes/editar/EditarSolicitante";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
           {
             path: "/solicitantes/:cnpj",
             element: <DetalhesSolicitante />
+          },
+          {
+            path: '/solicitantes/:cnpj/editar',
+            element: <EditarSolicitante />
           },
           {
             path: "/solicitacoes-de-analise/cadastrar",

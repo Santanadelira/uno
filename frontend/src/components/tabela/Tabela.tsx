@@ -134,15 +134,15 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
                             </Menu.Item>
                             <Menu.Item>
                               {({ active }) => (
-                                <a
-                                  href="#"
+                                <Link
+                                  to={`${consultarRota}/${dado.id}/editar`}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                 >
                                   Editar
-                                </a>
+                                </Link>
                               )}
                             </Menu.Item>
                           </Menu.Items>

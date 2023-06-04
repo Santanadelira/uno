@@ -4,6 +4,6 @@ import { listarEnsaiosPorItemDeAnalise } from "../../controllers/ensaios/Ensaios
 
 export default (router : express.Router) => {
     router.post('/itens-de-analise', cadastrarItensDeAnalise)
-    router.get('/itens-de-analise/', listarItensDeAnalise)
+    router.get('/itens-de-analise', listarItensDeAnalise)
     router.get('/itens-de-analise/solicitacao/:id', listarItensDeAnalisePorSolicitacao)
 }

@@ -472,6 +472,9 @@ const CadastrarSolicitante = () => {
                     ? formik.errors.telefone
                     : ""}
                 </p>
+                <p className="text-xs text-end text-gray-600 font-inter">
+                  Informe apenas os números do telefone!
+                </p>
               </div>
             </div>
           </div>

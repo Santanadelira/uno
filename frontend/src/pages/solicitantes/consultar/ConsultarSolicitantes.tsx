@@ -30,17 +30,17 @@ const ConsultarSolicitantes = () => {
   solicitantes &&
     solicitantes.map((solicitante: SolicitanteState) =>
       dados.push({
-        id: solicitante.cnpj,
+        id: solicitante.cnpj.slice(0, 2) +
+        "." +
+        solicitante.cnpj.slice(2, 5) +
+        "." +
+        solicitante.cnpj.slice(5, 8) +
+        "/" +
+        solicitante.cnpj.slice(8, 12) +
+        "-" +
+        solicitante.cnpj.slice(12, 14),
         itemRota:
-          solicitante.cnpj.slice(0, 2) +
-          "." +
-          solicitante.cnpj.slice(2, 5) +
-          "." +
-          solicitante.cnpj.slice(5, 8) +
-          "/" +
-          solicitante.cnpj.slice(8, 12) +
-          "-" +
-          solicitante.cnpj.slice(12, 14),
+          solicitante.cnpj,
         nome: solicitante.nome,
         info1: solicitante.responsavel,
         info2: solicitante.email,

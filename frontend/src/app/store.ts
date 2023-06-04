@@ -13,6 +13,7 @@ import {
 import { combineReducers } from "@reduxjs/toolkit";
 import solicitantesReducer from "../features/solicitantes/solicitantesSlice.ts";
 import solicitacoesReducer from '../features/solicitacoes/solicitacoesSlice.ts'
+import itensDeAnaliseReducer from '../features/itensDeAnalise/itensDeAnaliseSlice.ts'
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   auth: authReducer,
   solicitantes: solicitantesReducer,
   solicitacoes: solicitacoesReducer,
+  itensDeAnalise: itensDeAnaliseReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

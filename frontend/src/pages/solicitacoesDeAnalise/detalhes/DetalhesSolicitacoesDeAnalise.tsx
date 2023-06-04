@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Navbar from "../../../components/navbar/Navbar.tsx";
 import { useParams } from "react-router-dom";
+import Tabela from "../../../components/tabela/Tabela.tsx";
 
 interface SolicitacoesState {
   id: string;
@@ -58,6 +59,21 @@ const DetalhesSolicitacoesDeAnalise = () => {
         solicitante.cnpj === solicitacao[0].solicitanteCnpj
     )
   );
+
+  const dados: any = []
+
+  solicitacao[0].itensDeAnalise && solicitacao[0].itensDeAnalise.map((item: any) => {
+    dados.push({
+      id: item.id,
+      itemRota: item.id,
+      nome: item.tipoMaterial,
+      info1: item.lote,
+      info2: item.notaFiscal,
+    });
+  }
+  );
+
+  console.log(dados)
 
   return (
     <div className="min-h-screen">
@@ -243,6 +259,19 @@ const DetalhesSolicitacoesDeAnalise = () => {
             </div>
           </dl>
         </div>
+
+        <Tabela 
+          dados={dados}
+          colunas={[
+            "Id",
+            "Tipo de Material",
+            "Lote",
+            "Nota Fiscal",
+          ]}
+          textoPesquisa="Digite o tipo de material"
+          titulo="Itens de análise"
+          consultarRota="/itens-de-analise"
+        />
       </div>
     </div>
   );

@@ -86,7 +86,7 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
                 dadosPaginaAtual.map((dado) => (
                   <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100 odd:bg-white even:bg-gray-100">
                     <td className="pl-4 cursor-pointer w-1/4">
-                      <p className="font-inter">{dado.itemRota}</p>
+                      <p className="font-inter">{dado.id}</p>
                     </td>
                     <td className="pl-4 cursor-pointer  w-1/4">
                       <p className="font-inter">{dado.nome}</p>
@@ -122,7 +122,7 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  to={`${consultarRota}/${dado.id}`}
+                                  to={`${consultarRota}/${dado.itemRota}`}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"

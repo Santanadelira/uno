@@ -11,6 +11,7 @@ import DetalhesSolicitante from "../pages/solicitantes/detalhes/DetalhesSolicita
 import ConsultarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/consultar/ConsultarSolicitacaoDeAnalise";
 import DetalhesSolicitacoesDeAnalise from "../pages/solicitacoesDeAnalise/detalhes/DetalhesSolicitacoesDeAnalise";
 import EditarSolicitante from "../pages/solicitantes/editar/EditarSolicitante";
+import EditarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/editar/EditarSolicitacaoDeAnalise";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
           {
             path: "/solicitacoes-de-analise/:id",
             element: <DetalhesSolicitacoesDeAnalise />
+          },
+          {
+            path: "/solicitacoes-de-analise/:id/editar",
+            element: <EditarSolicitacaoDeAnalise />
           },
           {
             path: "/itens-de-analise/cadastrar",

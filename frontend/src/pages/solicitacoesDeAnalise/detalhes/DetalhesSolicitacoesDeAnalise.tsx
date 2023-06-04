@@ -53,13 +53,6 @@ const DetalhesSolicitacoesDeAnalise = () => {
     )
   );
 
-  const solicitante = useSelector((state: any) =>
-    state.solicitantes.solicitantes.filter(
-      (solicitante: SolicitanteState) =>
-        solicitante.cnpj === solicitacao[0].solicitanteCnpj
-    )
-  );
-
   const dados: any = []
 
   solicitacao[0].itensDeAnalise && solicitacao[0].itensDeAnalise.map((item: any) => {
@@ -110,7 +103,7 @@ const DetalhesSolicitacoesDeAnalise = () => {
                 Solicitante
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                {solicitante[0].nome}
+                {solicitacao[0].Solicitante.nome}
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

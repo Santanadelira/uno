@@ -104,79 +104,49 @@ export const procurarSolicitacaoDeAnalise = async (
   return res.status(200).json({ solicitacaoDeAnalise });
 };
 
-export const inicioDoProjeto = async (
+export const atualizarSolicitacaoDeAnalise = async (
   req: express.Request,
   res: express.Response
 ) => {
   const { id } = req.params;
 
-  try {
-    await prisma.solicitacaoDeAnalise.update({
-      where: { id },
-      data: { inicioDoProjeto: new Date() },
-    });
+  const reqBodySchema = z.object({
+    informacoesAdicionais: z
+      .string()
+      .min(3, "Informações adicionais deve conter no mínimo 3 caractéres!")
+      .nullable(),
+    conclusaoDoProjeto: z.string(),
+    dataEnvioResultados: z.string(),
+    responsavelPeloEnvio: z.string().nullable(),
+  });
 
-    return res.status(200).json({ message: "Projeto iniciado!" });
-  } catch (error) {
-    return res.status(400).json({ error: error });
+  const body = reqBodySchema.safeParse(req.body);
+
+  if (!body.success) {
+    return res.status(400).json({ error: body.error });
   }
-};
 
-export const conclusaoDoProjeto = async (
-  req: express.Request,
-  res: express.Response
-) => {
-  const { id } = req.params;
-
-  try {
-    await prisma.solicitacaoDeAnalise.update({
-      where: { id },
-      data: { conclusaoDoProjeto: new Date() },
-    });
-
-    return res.status(200).json({ message: "Projeto concluído!" });
-  } catch (error) {
-    return res.status(400).json({ error: error });
-  }
-};
-
-export const envioResultados = async (
-  req: express.Request,
-  res: express.Response
-) => {
-  const { id } = req.params;
-
-  const { responsavelPeloEnvio } = req.body;
+  const {
+    informacoesAdicionais,
+    conclusaoDoProjeto,
+    dataEnvioResultados,
+    responsavelPeloEnvio,
+  } = body.data;
 
   try {
     await prisma.solicitacaoDeAnalise.update({
       where: { id },
-      data: { dataEnvioResultados: new Date(), responsavelPeloEnvio },
+      data: {
+        informacoesAdicionais,
+        conclusaoDoProjeto: new Date(conclusaoDoProjeto),
+        dataEnvioResultados: new Date(dataEnvioResultados),
+        responsavelPeloEnvio,
+      },
     });
 
-    return res.status(200).json({ message: "Resultados enviados!" });
-  } catch (error) {
+    return res.status(200).json({ message: "Solicitação de análise atualizada!" });
+  }
+  catch (error) {
     return res.status(400).json({ error: error });
   }
-};
-
-export const informacoesAdicionais = async (
-  req: express.Request,
-  res: express.Response
-) => {
-  const { id } = req.params;
-  const { informacoesAdicionais } = req.body;
-
-  try {
-    await prisma.solicitacaoDeAnalise.update({
-      where: { id },
-      data: { informacoesAdicionais },
-    });
-
-    return res
-      .status(200)
-      .json({ message: "Informações adicionais atualizadas!" });
-  } catch (error) {
-    return res.status(400).json({ error: error });
-  }
-};
+}

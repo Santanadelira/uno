@@ -29,14 +29,14 @@ const CadastrarItensDeAnalise = () => {
 
   const cancelButtonRef = useRef(null);
 
-  const getSolicitantes = async () => {
+  const getSolicitacoes = async () => {
     const data = await axios.get(
       "https://uno-production.up.railway.app/solicitacoes-de-analise"
     );
 
-    const solicitantes = data.data;
+    const solicitacoes = data.data;
 
-    solicitantes.forEach((solicitacaoDeAnalise: { id: any; nomeProjeto: string; }) => {
+    solicitacoes.forEach((solicitacaoDeAnalise: { id: any; nomeProjeto: string; }) => {
       solicitacoesOptions.push({ value: solicitacaoDeAnalise.id, label: solicitacaoDeAnalise.nomeProjeto })
     });
 
@@ -49,7 +49,7 @@ const CadastrarItensDeAnalise = () => {
   };
 
   useEffect(() => {
-    getSolicitantes();
+    getSolicitacoes();
   }, []);
 
   const formik = useFormik({

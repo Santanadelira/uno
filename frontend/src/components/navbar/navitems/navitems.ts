@@ -61,8 +61,8 @@ export const navitems = [
             {
                 id: 'd2',
                 titulo: "Consultar",
-                descricao: "Consulte as informações das solicitações de análise!",
-                path: "/solicitacoes-de-analise/consultar",
+                descricao: "Consulte as informações dos itens de análise!",
+                path: "/itens-de-analise/consultar",
                 icon: MagnifyingGlassIcon
             },
         ]

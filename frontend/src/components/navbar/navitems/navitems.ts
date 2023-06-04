@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon, PencilIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 export const navitems = [

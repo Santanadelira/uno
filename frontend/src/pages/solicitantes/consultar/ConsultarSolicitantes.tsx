@@ -68,7 +68,7 @@ const ConsultarSolicitantes = () => {
       <div className="w-5/6 mx-auto">
         <Tabela
           titulo="Solicitantes"
-          textoPesquisa="Pesquisar Solicitante"
+          textoPesquisa="Digite o nome do solicitante"
           consultarRota="/solicitantes"
           colunas={["CNPJ", "Nome", "Responsável", "Email"]}
           dados={dados}

@@ -1,33 +1,10 @@
-import {
-  BeakerIcon,
-  EyeIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
 import Navbar from "../../../components/navbar/Navbar.tsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSolicitacoes } from "../../../features/solicitacoes/solicitacoesSlice.ts";
 import axios from "axios";
-import ItemLista from "../../../components/itemLista/ItemLista.tsx";
-import Paginacao from "../../../components/paginacao/Paginacao.tsx";
 import { setSolicitacoes } from "../../../features/solicitacoes/solicitacoesSlice.ts";
 import Tabela from "../../../components/tabela/Tabela.tsx";
-
-interface SolicitacoesState {
-  id: string;
-  nomeProjeto: string;
-  aberturaSA: Date;
-  inicioDoProjeto: Date | null;
-  entradaDosMateriais: Date | null;
-  conclusaoDoProjeto: Date | null;
-  prazoAcoradado: Date;
-  tipoDeAnalise: string;
-  descricaoDosServicos: string;
-  informacoesAdicionais: string;
-  modoEnvioResultado: string;
-  dataEnvioResultados: Date | null;
-  responsavelPeloEnvio: string;
-}
 
 const keyMap: Record<string, string> = {
   Desenvolvimento: "Desenvolvimento",
@@ -80,7 +57,7 @@ const ConsultarSolicitacaoDeAnalise = () => {
         <Tabela
           dados={dados}
           titulo="Solicitações de Análise"
-          textoPesquisa="Pesquisar Solicitação de Análise"
+          textoPesquisa="Digite o nome do projeto"
           colunas={["Id", "Nome do Projeto", "Solicitante", "Tipo de Análise"]}
           consultarRota="/solicitacoes-de-analise"
         />

@@ -102,9 +102,18 @@ export const editarSolicitante = async (
   res: express.Response
 ) => {
   const reqBodySchema = z.object({
-    email: z.string().email("Email inválido!").nonempty("Campo obrigatório!"),
-    telefone: z.string().nonempty("Campo obrigatório!"),
+    nome: z.string().nonempty("Campo obrigatório!"),
+    cep: z
+      .string()
+      .nonempty("Campo obrigatório!")
+      .length(8, "CEP deve conter 8 caractéres!"),
+    endereco: z.string().nonempty("Campo obrigatório!"),
+    numero: z.string().nonempty("Campo obrigatório!"),
+    cidade: z.string().nonempty("Campo obrigatório!"),
+    estado: z.string().nonempty("Campo obrigatório!"),
     responsavel: z.string().nonempty("Campo obrigatório!"),
+    telefone: z.string().nonempty("Campo obrigatório!"),
+    email: z.string().nonempty("Campo obrigatório!").email("Email inválido!"),
   });
 
   const paramsSchema = z.object({
@@ -134,6 +143,12 @@ export const editarSolicitante = async (
   const solicitanteAtualizado = await prisma.solicitante.update({
     where: { cnpj: params.data.cnpj },
     data: {
+      nome: body.data.nome,
+      cep: body.data.cep,
+      endereco: body.data.endereco,
+      numero: body.data.numero,
+      cidade: body.data.cidade,
+      estado: body.data.estado,
       telefone: body.data.telefone,
       email: body.data.email,
       responsavel: body.data.responsavel,

@@ -64,7 +64,11 @@ export const listarSolicitantes = async (
   req: express.Request,
   res: express.Response
 ) => {
-  const dadosSolicitantes = await prisma.solicitante.findMany({});
+  const dadosSolicitantes = await prisma.solicitante.findMany({
+    include: {
+      solicitacoesDeAnalise: true,
+    }
+  });
   return res.status(200).json(dadosSolicitantes);
 };
 

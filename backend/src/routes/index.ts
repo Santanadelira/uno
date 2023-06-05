@@ -4,6 +4,7 @@ import SolicitacoesDeAnaliseRouter from './solicitacoesDeAnalise/SolicitacoesDeA
 import ItensDeAnaliseRouter from './itensDeAnalise/ItensDeAnaliseRouter'
 import UsuariosRouter from './usuarios/UsuariosRouter'
 import EnsaiosRouter from './ensaios/EnsaiosRouter'
+import DashboardRouter from './dashboard/DashboardRouter'
 
 const router = express.Router()
 
@@ -13,5 +14,6 @@ export default () : express.Router => {
     ItensDeAnaliseRouter(router)
     UsuariosRouter(router)
     EnsaiosRouter(router)
+    DashboardRouter(router)
     return router
 }

@@ -5,13 +5,7 @@ import { StatusEnsaio } from '@prisma/client'
 export const dashboard = async (req: express.Request, res: express.Response) => {
     const dashboard = {
         solicitacoes: await prisma.solicitacaoDeAnalise.count(),
-        ensaios: await prisma.ensaio.count({
-            where: {
-                statusEnsaio: {
-                    not: StatusEnsaio.Concluida
-                }
-            }
-        }),
+        ensaios: await prisma.ensaio.count(),
         ensaiosPendente: await prisma.ensaio.count({
             where: {
                 statusEnsaio: StatusEnsaio.Pendente
@@ -20,6 +14,11 @@ export const dashboard = async (req: express.Request, res: express.Response) => 
         ensaiosEmAndamento: await prisma.ensaio.count({
             where: {
                 statusEnsaio: StatusEnsaio.EmAnalise
+            }
+        }),
+        ensaiosConcluidos: await prisma.ensaio.count({
+            where: {
+                statusEnsaio: StatusEnsaio.Concluida
             }
         }),
     }

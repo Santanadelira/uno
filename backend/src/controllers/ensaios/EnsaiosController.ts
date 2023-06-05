@@ -168,7 +168,7 @@ export const resultadoEnsaio = async (
     },
     data: {
       resultado: body.data.resultado,
-      statusEnsaio: "Concluído" as StatusEnsaio,
+      statusEnsaio: "Concluida" as StatusEnsaio,
       dataDeAnalise: new Date(),
     },
   });

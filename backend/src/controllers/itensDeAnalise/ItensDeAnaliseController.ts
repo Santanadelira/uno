@@ -63,6 +63,7 @@ export const listarItensDeAnalise = async (
   const dadosItensDeAnalise = await prisma.itemDeAnalise.findMany({
     include: {
       solicitacaoDeAnalise: true,
+      Ensaio: true,
     },
   });
   return res.status(200).json(dadosItensDeAnalise);

@@ -69,6 +69,21 @@ export const listarItensDeAnalise = async (
   return res.status(200).json(dadosItensDeAnalise);
 };
 
+export const procurarItemDeAnalisePorId = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  const { id } = req.params;
+
+  const itemDeAnalise = await prisma.itemDeAnalise.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  return res.status(200).json(itemDeAnalise);
+}
+
 export const listarItensDeAnalisePorSolicitacao = async (
     req: express.Request,
     res: express.Response

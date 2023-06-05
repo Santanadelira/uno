@@ -19,28 +19,40 @@ export const cadastrarEnsaios = async (
     return res.status(400).json({ error: body.error });
   }
 
-  await prisma.ensaio.create({
-    data: {
-      nomeEnsaio: body.data.nomeEnsaio as Ensaios,
-      especificacao: body.data.especificacao,
-      itemDeAnalise: {
-        connect: {
-          id: body.data.itemDeAnaliseId,
-        },
-      },
-    },
-  });
-
-  await prisma.itemDeAnalise.update({
+  const itemDeAnalise = await prisma.itemDeAnalise.findUnique({
     where: {
       id: body.data.itemDeAnaliseId,
     },
-    data: {
-      quantidadeDisponivel: {
-        decrement: 1,
-      },
-    },
   });
+
+  if (itemDeAnalise?.quantidadeDisponivel === 0) {
+    return res
+      .status(400)
+      .json({ error: "Não há material disponível para realizar o ensaio!" });
+  } else {
+    await prisma.ensaio.create({
+      data: {
+        nomeEnsaio: body.data.nomeEnsaio as Ensaios,
+        especificacao: body.data.especificacao,
+        itemDeAnalise: {
+          connect: {
+            id: body.data.itemDeAnaliseId,
+          },
+        },
+      },
+    });
+
+    await prisma.itemDeAnalise.update({
+      where: {
+        id: body.data.itemDeAnaliseId,
+      },
+      data: {
+        quantidadeDisponivel: {
+          decrement: 1,
+        },
+      },
+    });
+  }
 
   return res.status(201).json({ message: "Ensaio criado!" });
 };

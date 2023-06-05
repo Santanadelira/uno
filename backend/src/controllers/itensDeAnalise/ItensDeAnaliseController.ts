@@ -62,6 +62,9 @@ export const listarItensDeAnalise = async (
       solicitacaoDeAnalise: true,
       Ensaio: true,
     },
+    orderBy: {
+      tipoMaterial: "asc",
+    },
   });
   return res.status(200).json(dadosItensDeAnalise);
 };

@@ -150,6 +150,9 @@ const DetalhesSolicitante = () => {
 
         <Tabela 
           dados={dados}
+          cadastrar={false}
+          editar={true}
+          textoBotao=""
           colunas={[
             "Id",
             "Nome do projeto",

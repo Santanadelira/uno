@@ -12,6 +12,9 @@ import ConsultarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/consul
 import DetalhesSolicitacoesDeAnalise from "../pages/solicitacoesDeAnalise/detalhes/DetalhesSolicitacoesDeAnalise";
 import EditarSolicitante from "../pages/solicitantes/editar/EditarSolicitante";
 import EditarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/editar/EditarSolicitacaoDeAnalise";
+import ConsultarItensDeAnalise from "../pages/itensDeAnalise/consultar/ConsultarItensDeAnalise";
+import DetalhesItensDeAnalise from "../pages/itensDeAnalise/detalhes/DetalhesItensDeAnalise";
+import DetalhesEnsaio from "../pages/ensaios/detalhes/DetalhesEnsaio";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +68,18 @@ export const router = createBrowserRouter([
           {
             path: "/itens-de-analise/cadastrar",
             element: <CadastrarItensDeAnalise />,
+          },
+          {
+            path: "/itens-de-analise/consultar",
+            element: <ConsultarItensDeAnalise />,
+          },
+          {
+            path: "/itens-de-analise/:id",
+            element: <DetalhesItensDeAnalise />,
+          },
+          {
+            path: "/ensaios/:id",
+            element: <DetalhesEnsaio />
           }
         ],
       },

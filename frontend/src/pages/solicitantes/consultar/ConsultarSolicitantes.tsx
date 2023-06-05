@@ -72,6 +72,9 @@ const ConsultarSolicitantes = () => {
           consultarRota="/solicitantes"
           colunas={["CNPJ", "Nome", "Responsável", "Email"]}
           dados={dados}
+          editar={true}
+          cadastrar={false}
+          textoBotao=""
         />
       </div>
     </div>

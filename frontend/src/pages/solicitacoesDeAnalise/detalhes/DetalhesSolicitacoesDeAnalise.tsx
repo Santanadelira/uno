@@ -42,6 +42,10 @@ const DetalhesSolicitacoesDeAnalise = () => {
 
   const dados: any = []
 
+  const acao = () => {
+    console.log("teste");
+  }
+
   solicitacao[0].itensDeAnalise && solicitacao[0].itensDeAnalise.map((item: any) => {
     dados.push({
       id: item.id,
@@ -52,8 +56,6 @@ const DetalhesSolicitacoesDeAnalise = () => {
     });
   }
   );
-
-  console.log(dados)
 
   return (
     <div className="min-h-screen">
@@ -241,6 +243,8 @@ const DetalhesSolicitacoesDeAnalise = () => {
         </div>
 
         <Tabela 
+        acao={acao}
+        key={solicitacao[0].id}
           dados={dados}
           colunas={[
             "Id",
@@ -251,6 +255,9 @@ const DetalhesSolicitacoesDeAnalise = () => {
           textoPesquisa="Digite o tipo de material"
           titulo="Itens de análise"
           consultarRota="/itens-de-analise"
+          editar={true}
+          cadastrar={false}
+          textoBotao=""
         />
       </div>
     </div>

@@ -9,9 +9,13 @@ import Paginacao from "../paginacao/Paginacao";
 
 interface TabelaProps {
   titulo: string;
+  acao: any;
   colunas: string[];
   consultarRota: string;
   textoPesquisa: string;
+  editar: boolean;
+  cadastrar: boolean;
+  textoBotao: string;
   dados: [
     {
       id: string;
@@ -23,7 +27,7 @@ interface TabelaProps {
   ];
 }
 
-const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: TabelaProps) => {
+const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota, editar, cadastrar, textoBotao, acao}: TabelaProps) => {
   const classNames = (...classes: string[]) => {
     return classes.filter(Boolean).join(" ");
   };
@@ -34,6 +38,10 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
   const itensPorPagina = 5;
   const ultimoIndex = paginaAtual * itensPorPagina;
   const primeiroIndex = ultimoIndex - itensPorPagina;
+
+  const handleButtonClick = () => {
+    acao(true); // Call the setter function to open the modal
+  };
 
   const dadosPaginaAtual = dadosFiltrados.slice(
     primeiroIndex,
@@ -60,6 +68,10 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
             <p className="text-base font-inter font-semibold leading-7 text-gray-900">
               {titulo}
             </p>
+
+            {
+              cadastrar && <button className="py-2 px-4 rounded-md shadow bg-indigo-600 text-white font-inter text-sm font-medium hover:bg-indigo-500" onClick={handleButtonClick}>{textoBotao}</button>
+            }
           </div>
           <div className="relative mt-7 border-b border-b-gray-900/10 pb-7">
             <input
@@ -132,7 +144,8 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
                                 </Link>
                               )}
                             </Menu.Item>
-                            <Menu.Item>
+                            {
+                              editar && <Menu.Item>
                               {({ active }) => (
                                 <Link
                                   to={`${consultarRota}/${dado.id}/editar`}
@@ -145,6 +158,7 @@ const Tabela = ({ titulo, colunas, dados, textoPesquisa, consultarRota }: Tabela
                                 </Link>
                               )}
                             </Menu.Item>
+                            }
                           </Menu.Items>
                         </Transition>
                       </Menu>

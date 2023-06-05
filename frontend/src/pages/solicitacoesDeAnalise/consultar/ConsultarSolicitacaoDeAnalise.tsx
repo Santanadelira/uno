@@ -24,6 +24,10 @@ const ConsultarSolicitacaoDeAnalise = () => {
   const solicitacoes = useSelector(selectSolicitacoes);
   const dados: any = [];
 
+const acao = () => {
+    console.log("acao")
+}
+
   solicitacoes &&
     solicitacoes.map((solicitacao: any) => {
       dados.push({
@@ -55,11 +59,15 @@ const ConsultarSolicitacaoDeAnalise = () => {
 
       <div className="w-5/6 mx-auto">
         <Tabela
+        acao={acao}
           dados={dados}
           titulo="Solicitações de Análise"
           textoPesquisa="Digite o nome do projeto"
           colunas={["Id", "Nome do Projeto", "Solicitante", "Tipo de Análise"]}
           consultarRota="/solicitacoes-de-analise"
+          editar={true}
+          cadastrar={false}
+          textoBotao=""
         />
       </div>
     </div>

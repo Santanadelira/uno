@@ -156,12 +156,6 @@ export const resultadoEnsaio = async (
     return res.status(400).json({ error: body.error });
   }
 
-  const ensaio = await prisma.ensaio.findUnique({
-    where: {
-      id: params.data.id,
-    },
-  });
-
   await prisma.ensaio.update({
     where: {
       id: params.data.id,
@@ -173,16 +167,12 @@ export const resultadoEnsaio = async (
     },
   });
 
-  const ensaioAtualizado = await prisma.itemDeAnalise.update({
+  const ensaio = await prisma.ensaio.findUnique({
     where: {
-      id: ensaio?.itemDeAnaliseId,
-    },
-    data: {
-      quantidadeDisponivel: {
-        decrement: 1,
-      },
+      id: params.data.id,
     },
   });
 
-  return res.status(200).json(ensaioAtualizado);
+
+  return res.status(200).json(ensaio);
 };

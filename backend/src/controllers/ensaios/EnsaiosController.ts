@@ -84,6 +84,33 @@ export const procurarEnsaioPorId = async (
   return res.status(200).json(ensaio);
 };
 
+export const inicializarEnsaio = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  const reqBodySchema = z.object({
+    statusEnsaio: z.string().nonempty("Campo obrigatório!"),
+  });
+
+  const body = reqBodySchema.safeParse(req.body);
+  const { id } = req.params;
+
+  if (!body.success) {
+    return res.status(400).json({ error: body.error });
+  }
+
+  const ensaio = await prisma.ensaio.update({
+    where: {
+      id,
+    },
+    data: {
+      statusEnsaio: body.data.statusEnsaio as StatusEnsaio,
+    },
+  })
+
+  return res.status(200).json(ensaio);
+};
+
 export const listarEnsaiosPorItemDeAnalise = async (
   req: express.Request,
   res: express.Response

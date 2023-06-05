@@ -57,6 +57,33 @@ export const cadastrarEnsaios = async (
   return res.status(201).json({ message: "Ensaio criado!" });
 };
 
+export const procurarEnsaioPorId = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  const paramsSchema = z.object({
+    id: z.string().nonempty("Campo obrigatório!"),
+  });
+
+  const params = paramsSchema.safeParse(req.params);
+
+  if (!params.success) {
+    return res.status(400).json({ error: params.error });
+  }
+
+  const ensaio = await prisma.ensaio.findUnique({
+    where: {
+      id: params.data.id,
+    },
+  });
+
+  if (!ensaio) {
+    return res.status(404).json({ error: "Ensaio não encontrado!" });
+  }
+
+  return res.status(200).json(ensaio);
+};
+
 export const listarEnsaiosPorItemDeAnalise = async (
   req: express.Request,
   res: express.Response

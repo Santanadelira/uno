@@ -26,6 +26,10 @@ const ConsultarItensDeAnalise = () => {
   const itensDeAnalise = useSelector(selectItensDeAnalise);
   const dados: any = [];
 
+  const acao = () => {
+    console.log("teste");
+  }
+
   itensDeAnalise &&
     itensDeAnalise.map((itemDeAnalise: ItemDeAnaliseState) =>
       dados.push({
@@ -57,6 +61,7 @@ const ConsultarItensDeAnalise = () => {
 
       <div className="w-5/6 mx-auto">
         <Tabela 
+        acao={acao}
             dados={dados}
             titulo="Itens de Análise"
             colunas={["Id", "Tipo de Material", "Lote", "Nota Fiscal"]}

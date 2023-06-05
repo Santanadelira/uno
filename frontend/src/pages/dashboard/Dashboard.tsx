@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
-import { Chart as ChartJs, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Chart } from "chart.js";
+import { Chart as ChartJs, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { Bar } from 'react-chartjs-2'
 
 ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -44,12 +44,7 @@ const Dashboard = () => {
     responsive: true,
   };
 
-  const [chartKey, setChartKey] = useState(0);
-
-
-  const destroyChart = () => {
-    setChartKey((prevKey) => prevKey + 1);
-  };
+  const [chartKey] = useState(0);
 
 
   return dashboard ? ( (

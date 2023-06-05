@@ -36,6 +36,10 @@ const DetalhesSolicitante = () => {
     )
   );
 
+  const acao = () => {
+    console.log("teste");
+  }
+
   const dados: any = [];
 
   solicitante[0].solicitacoesDeAnalise && solicitante[0].solicitacoesDeAnalise.map((solicitacao: any) => {
@@ -149,6 +153,7 @@ const DetalhesSolicitante = () => {
         </div>
 
         <Tabela 
+        acao={acao}
           dados={dados}
           cadastrar={false}
           editar={true}

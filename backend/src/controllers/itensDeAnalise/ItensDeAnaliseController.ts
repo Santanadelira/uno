@@ -1,9 +1,6 @@
 import express from "express";
 import { z } from "zod";
 import { prisma } from "../../prisma/prisma";
-import {
-  ItemDeAnalise,
-} from "../../entities/entities";
 
 export const cadastrarItensDeAnalise = async (
   req: express.Request,

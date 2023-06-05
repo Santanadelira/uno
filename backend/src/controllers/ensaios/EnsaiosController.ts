@@ -2,7 +2,6 @@ import express from "express";
 import { prisma } from "../../prisma/prisma";
 import { z } from "zod";
 import { Ensaios, StatusEnsaio } from "@prisma/client";
-import { Ensaio } from "../../entities/entities";
 
 export const cadastrarEnsaios = async (
   req: express.Request,
@@ -28,6 +27,17 @@ export const cadastrarEnsaios = async (
         connect: {
           id: body.data.itemDeAnaliseId,
         },
+      },
+    },
+  });
+
+  await prisma.itemDeAnalise.update({
+    where: {
+      id: body.data.itemDeAnaliseId,
+    },
+    data: {
+      quantidadeDisponivel: {
+        decrement: 1,
       },
     },
   });

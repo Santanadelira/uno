@@ -173,7 +173,7 @@ export const resultadoEnsaio = async (
     },
   });
 
-  await prisma.itemDeAnalise.update({
+  const ensaioAtualizado = await prisma.itemDeAnalise.update({
     where: {
       id: ensaio?.itemDeAnaliseId,
     },
@@ -184,5 +184,5 @@ export const resultadoEnsaio = async (
     },
   });
 
-  return res.status(200).json({ message: "Resultado do ensaio atualizado!" });
+  return res.status(200).json(ensaioAtualizado);
 };

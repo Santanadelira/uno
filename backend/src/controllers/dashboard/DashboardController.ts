@@ -8,12 +8,12 @@ export const dashboard = async (req: express.Request, res: express.Response) => 
         ensaios: await prisma.ensaio.count(),
         ensaiosPendente: await prisma.ensaio.count({
             where: {
-                statusEnsaio: "Pendente" as StatusEnsaio
+                statusEnsaio: StatusEnsaio.Pendente
             }
         }),
         ensaiosEmAndamento: await prisma.ensaio.count({
             where: {
-                statusEnsaio: "EmAndamento" as StatusEnsaio
+                statusEnsaio: StatusEnsaio.EmAnalise
             }
         }),
     }

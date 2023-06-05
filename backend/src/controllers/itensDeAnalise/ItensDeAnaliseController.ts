@@ -79,6 +79,10 @@ export const procurarItemDeAnalisePorId = async (
     where: {
       id: id,
     },
+    include: {
+      solicitacaoDeAnalise: true,
+      Ensaio: true,
+    },
   });
 
   return res.status(200).json(itemDeAnalise);

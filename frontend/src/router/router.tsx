@@ -11,10 +11,11 @@ import DetalhesSolicitante from "../pages/solicitantes/detalhes/DetalhesSolicita
 import ConsultarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/consultar/ConsultarSolicitacaoDeAnalise";
 import DetalhesSolicitacoesDeAnalise from "../pages/solicitacoesDeAnalise/detalhes/DetalhesSolicitacoesDeAnalise";
 import EditarSolicitante from "../pages/solicitantes/editar/EditarSolicitante";
-import EditarSolicitacaoDeAnalise from "../pages/solicitacoesDeAnalise/editar/EditarSolicitacaoDeAnalise";
 import ConsultarItensDeAnalise from "../pages/itensDeAnalise/consultar/ConsultarItensDeAnalise";
 import DetalhesItensDeAnalise from "../pages/itensDeAnalise/detalhes/DetalhesItensDeAnalise";
 import DetalhesEnsaio from "../pages/ensaios/detalhes/DetalhesEnsaio";
+import GerarRelatorioAnalise from "../services/relatorio/GerarRelatorioAnalise";
+import CadastrarUsuario from "../pages/usuarios/CadastrarUsuario";
 
 export const router = createBrowserRouter([
   {
@@ -62,10 +63,6 @@ export const router = createBrowserRouter([
             element: <DetalhesSolicitacoesDeAnalise />
           },
           {
-            path: "/solicitacoes-de-analise/:id/editar",
-            element: <EditarSolicitacaoDeAnalise />
-          },
-          {
             path: "/itens-de-analise/cadastrar",
             element: <CadastrarItensDeAnalise />,
           },
@@ -80,6 +77,14 @@ export const router = createBrowserRouter([
           {
             path: "/ensaios/:id",
             element: <DetalhesEnsaio />
+          },
+          {
+            path: "/solicitacoes-de-analise/:id/relatorio",
+            element: <GerarRelatorioAnalise />
+          },
+          {
+            path: "/usuarios/cadastrar",
+            element: <CadastrarUsuario />,
           }
         ],
       },

@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import Navbar from "../../../components/navbar/Navbar.tsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Tabela from "../../../components/tabela/Tabela.tsx";
+import GerarRelatorioAnalise from "../../../services/relatorio/GerarRelatorioAnalise.tsx";
 
 interface SolicitacoesState {
   id: string;
@@ -40,34 +41,39 @@ const DetalhesSolicitacoesDeAnalise = () => {
     )
   );
 
-  const dados: any = []
+  const dados: any = [];
 
   const acao = () => {
     console.log("teste");
-  }
+  };
 
-  solicitacao[0].itensDeAnalise && solicitacao[0].itensDeAnalise.map((item: any) => {
-    dados.push({
-      id: item.id,
-      itemRota: item.id,
-      nome: item.tipoMaterial,
-      info1: item.lote,
-      info2: item.notaFiscal,
+  solicitacao[0].itensDeAnalise &&
+    solicitacao[0].itensDeAnalise.map((item: any) => {
+      dados.push({
+        id: item.id,
+        itemRota: item.id,
+        nome: item.tipoMaterial,
+        info1: item.lote,
+        info2: item.notaFiscal,
+      });
     });
-  }
-  );
+
 
   return (
     <div className="min-h-screen">
       <Navbar />
       <div className="w-5/6 mx-auto mt-7">
-        <div className="border-b border-b-gray-900/10 pb-7">
-          <h2 className="text-gray-900 font-semibold leading-7 font-inter">
-            Informações da solicitação de análise
-          </h2>
-          <p className="font-inter mt-1 text-sm leading-6 text-gray-600">
-            Informações da solicitação de análise e seus itens de análise
-          </p>
+        <div className="border-b border-b-gray-900/10 pb-7 flex items-center justify-between">
+          <div>
+            <h2 className="text-gray-900 font-semibold leading-7 font-inter">
+              Informações da solicitação de análise
+            </h2>
+            <p className="font-inter mt-1 text-sm leading-6 text-gray-600">
+              Informações da solicitação de análise e seus itens de análise
+            </p>
+          </div>
+
+          <Link to={`/solicitacoes-de-analise/${id}/relatorio`} className="py-2 px-4 rounded-md bg-indigo-600 text-white text-sm font-semibold">Relatório</Link>
         </div>
         <div>
           <dl className="divide-y divide-gray-900/10">
@@ -242,16 +248,11 @@ const DetalhesSolicitacoesDeAnalise = () => {
           </dl>
         </div>
 
-        <Tabela 
-        acao={acao}
-        key={solicitacao[0].id}
+        <Tabela
+          acao={acao}
+          key={solicitacao[0].id}
           dados={dados}
-          colunas={[
-            "Id",
-            "Tipo de Material",
-            "Lote",
-            "Nota Fiscal",
-          ]}
+          colunas={["Id", "Tipo de Material", "Lote", "Nota Fiscal"]}
           textoPesquisa="Digite o tipo de material"
           titulo="Itens de análise"
           consultarRota="/itens-de-analise"

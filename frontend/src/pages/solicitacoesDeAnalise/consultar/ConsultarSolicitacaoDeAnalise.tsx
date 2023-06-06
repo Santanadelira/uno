@@ -65,7 +65,7 @@ const acao = () => {
           textoPesquisa="Digite o nome do projeto"
           colunas={["Id", "Nome do Projeto", "Solicitante", "Tipo de Análise"]}
           consultarRota="/solicitacoes-de-analise"
-          editar={true}
+          editar={false}
           cadastrar={false}
           textoBotao=""
         />

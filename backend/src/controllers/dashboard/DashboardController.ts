@@ -5,6 +5,12 @@ import { StatusEnsaio } from '@prisma/client'
 export const dashboard = async (req: express.Request, res: express.Response) => {
     const dashboard = {
         solicitacoes: await prisma.solicitacaoDeAnalise.count(),
+        solicitantes: await prisma.solicitante.count(),
+        itensDeAnalise: await prisma.itemDeAnalise.aggregate({
+            _sum: {
+                quantidadeDisponivel: true
+            }
+        }),
         ensaios: await prisma.ensaio.count(),
         ensaiosPendente: await prisma.ensaio.count({
             where: {

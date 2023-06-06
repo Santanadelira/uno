@@ -10,7 +10,7 @@ import axios from "axios";
 
 const ensaios = [
   { value: "", label: "Selecione o ensaio a ser feito" },
-  { value: "Desintegrracao", label: "Desintegração" },
+  { value: "Desintegracao", label: "Desintegração" },
   { value: "Dissolucao", label: "Dissolução" },
   { value: "pH", label: "pH" },
   { value: "Dureza", label: "Dureza" },

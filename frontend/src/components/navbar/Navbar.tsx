@@ -55,7 +55,8 @@ export default function Example() {
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           {navitems.map((item) =>
             item.dropdown ? (
-              <Popover className="relative">
+              item.cargos.includes(usuario.cargo) ? (
+                <Popover className="relative">
                 <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 font-inter">
                   {item.titulo}
                   <ChevronDownIcon
@@ -76,7 +77,7 @@ export default function Example() {
                   <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                     <div className="p-4">
                       {item.dropdown.map((dropItem) => (
-                        <div
+                        dropItem.cargos.includes(usuario.cargo) ? (<div
                           key={dropItem.id}
                           className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
                         >
@@ -98,19 +99,20 @@ export default function Example() {
                               {dropItem.descricao}
                             </p>
                           </div>
-                        </div>
+                        </div>) : (<></>)
                       ))}
                     </div>
                   </Popover.Panel>
                 </Transition>
               </Popover>
+              ) : (<></>)
             ) : (
-              <Link
+              item.cargos.includes(usuario.cargo) ? (<Link
                 to={item.path}
                 className="text-sm font-semibold leading-6 text-gray-900 font-inter"
               >
                 {item.titulo}
-              </Link>
+              </Link>) : (<></>)
             )
           )}
         </Popover.Group>
@@ -177,7 +179,8 @@ export default function Example() {
               <div className="space-y-2 py-6">
                 {navitems.map((item) =>
                   item.dropdown ? (
-                    <Disclosure key={item.id} as="div" className="-mx-3">
+                    item.cargos.includes(usuario.cargo) ? (
+                      <Disclosure key={item.id} as="div" className="-mx-3">
                       {({ open }) => (
                         <>
                           <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
@@ -193,16 +196,18 @@ export default function Example() {
                           <Disclosure.Panel className="mt-2 space-y-2">
                             {item.dropdown.map((dropItem) => (
                               <Disclosure.Button
-                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                className="block w-full text-left rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 key={dropItem.id}
                               >
-                                {dropItem.titulo}
+                                <Link to={dropItem.path}>{dropItem.titulo}</Link>
                               </Disclosure.Button>
                             ))}
                           </Disclosure.Panel>
                         </>
                       )}
                     </Disclosure>
+                    ) : (<></>)
+                    
                   ) : (
                     <Link
                       to={item.path}

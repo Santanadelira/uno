@@ -2,7 +2,6 @@ import express from "express";
 import { z } from "zod";
 import { prisma } from "../../prisma/prisma";
 import { ModoDeEnvioResultado, TipoDeAnalise } from "@prisma/client";
-import { SolicitacaoDeAnalise } from "../../entities/entities";
 
 export const cadastrarSolicitacaoDeAnalise = async (
   req: express.Request,

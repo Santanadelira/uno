@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
-import { Chart as ChartJs, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Chart } from "chart.js";
+import { Chart as ChartJs, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { Bar } from 'react-chartjs-2'
 
-Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const Dashboard = () => {
   const [dashboard, setDashboard] = useState({

@@ -98,6 +98,14 @@ export const procurarSolicitacaoDeAnalise = async (
 
   const solicitacaoDeAnalise = await prisma.solicitacaoDeAnalise.findUnique({
     where: { id },
+    include: {
+      Solicitante: true,
+      itensDeAnalise: {
+        include: {
+          Ensaio: true,
+        }
+      },
+    },
   });
 
   if (!solicitacaoDeAnalise) {

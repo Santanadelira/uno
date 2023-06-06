@@ -1,6 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
 import {
-  MagnifyingGlassIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import axios from "axios";

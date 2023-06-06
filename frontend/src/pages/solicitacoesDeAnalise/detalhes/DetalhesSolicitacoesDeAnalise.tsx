@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import Navbar from "../../../components/navbar/Navbar.tsx";
 import { Link, useParams } from "react-router-dom";
 import Tabela from "../../../components/tabela/Tabela.tsx";
-import GerarRelatorioAnalise from "../../../services/relatorio/GerarRelatorioAnalise.tsx";
 
 interface SolicitacoesState {
   id: string;

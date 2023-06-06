@@ -38,7 +38,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: 'Ensaios',
-        data: [dashboard.ensaios, dashboard.ensaiosPendente, dashboard.ensaiosPendente, dashboard.ensaiosConcluidos],
+        data: [dashboard.ensaios, dashboard.ensaiosPendente, dashboard.ensaiosEmAndamento, dashboard.ensaiosConcluidos],
         backgroundColor: 'rgba(75, 192, 192, 0.2)', // Optional: Set the background color
         borderColor: 'rgba(75, 192, 192, 1)', // Optional: Set the border color
         borderWidth: 1, // Optional: Set the border width

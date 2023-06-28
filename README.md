@@ -1,7 +1,7 @@
 # Uno
 ---
 
-Uno Lims is a simple laboratory information manegemnt system developed. It is a user-friendly web-based system to streamline laboratory operations. It efficiently manages data, samples, and experiments, facilitating collaboration and enhancing productivity.
+Uno Lims is a simple laboratory information management system developed. It is a user-friendly web-based system to streamline laboratory operations. It efficiently manages data, samples, and experiments, facilitating collaboration and enhancing productivity.
 
 ![Uno Lims](./.github/images/Uno.png)
 

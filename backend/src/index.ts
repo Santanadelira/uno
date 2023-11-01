@@ -19,6 +19,6 @@ server.use('/', routes())
 
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => {
+server.listen(PORT as number, "0.0.0.0", () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
